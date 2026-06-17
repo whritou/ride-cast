@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="Cyclist Weather Demo" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Demo Han River Loop</name>
+  </metadata>
+  <trk>
+    <name>Demo Han River Loop</name>
+    <trkseg>
+      <trkpt lat="37.52620" lon="126.92410"><ele>15.0</ele><time>2026-06-06T08:00:00Z</time></trkpt>
+      <trkpt lat="37.52740" lon="126.93080"><ele>14.0</ele><time>2026-06-06T08:03:00Z</time></trkpt>
+      <trkpt lat="37.52870" lon="126.93840"><ele>14.0</ele><time>2026-06-06T08:06:00Z</time></trkpt>
+      <trkpt lat="37.52950" lon="126.94620"><ele>13.0</ele><time>2026-06-06T08:09:00Z</time></trkpt>
+      <trkpt lat="37.52990" lon="126.95470"><ele>13.0</ele><time>2026-06-06T08:12:00Z</time></trkpt>
+      <trkpt lat="37.53080" lon="126.96320"><ele>12.0</ele><time>2026-06-06T08:15:00Z</time></trkpt>
+      <trkpt lat="37.53220" lon="126.97160"><ele>12.0</ele><time>2026-06-06T08:18:00Z</time></trkpt>
+      <trkpt lat="37.53290" lon="126.98080"><ele>13.0</ele><time>2026-06-06T08:21:00Z</time></trkpt>
+      <trkpt lat="37.53240" lon="126.99010"><ele>13.0</ele><time>2026-06-06T08:24:00Z</time></trkpt>
+      <trkpt lat="37.53040" lon="126.99770"><ele>14.0</ele><time>2026-06-06T08:27:00Z</time></trkpt>
+      <trkpt lat="37.52680" lon="126.99940"><ele>15.0</ele><time>2026-06-06T08:30:00Z</time></trkpt>
+      <trkpt lat="37.52320" lon="126.99610"><ele>16.0</ele><time>2026-06-06T08:33:00Z</time></trkpt>
+      <trkpt lat="37.52110" lon="126.98880"><ele>17.0</ele><time>2026-06-06T08:36:00Z</time></trkpt>
+      <trkpt lat="37.52000" lon="126.98020"><ele>18.0</ele><time>2026-06-06T08:39:00Z</time></trkpt>
+      <trkpt lat="37.51940" lon="126.97180"><ele>17.0</ele><time>2026-06-06T08:42:00Z</time></trkpt>
+      <trkpt lat="37.51830" lon="126.96340"><ele>16.0</ele><time>2026-06-06T08:45:00Z</time></trkpt>
+      <trkpt lat="37.51720" lon="126.95510"><ele>15.0</ele><time>2026-06-06T08:48:00Z</time></trkpt>
+      <trkpt lat="37.51680" lon="126.94680"><ele>14.0</ele><time>2026-06-06T08:51:00Z</time></trkpt>
+      <trkpt lat="37.51770" lon="126.93890"><ele>14.0</ele><time>2026-06-06T08:54:00Z</time></trkpt>
+      <trkpt lat="37.52010" lon="126.93100"><ele>15.0</ele><time>2026-06-06T08:57:00Z</time></trkpt>
+      <trkpt lat="37.52360" lon="126.92600"><ele>15.0</ele><time>2026-06-06T09:00:00Z</time></trkpt>
+      <trkpt lat="37.52620" lon="126.92410"><ele>15.0</ele><time>2026-06-06T09:03:00Z</time></trkpt>
+    </trkseg>
+  </trk>
+</gpx>
