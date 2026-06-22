@@ -4,26 +4,34 @@ package com.example.cyclistweather.domain.model
 enum class HazardSeverity { WARNING, DANGER }
 
 /**
- * Language-neutral identity of a hazard. Used for de-duplication in the domain and to look up the
- * localized title/detail in the UI layer (the displayed text never lives in the domain).
+ * Groups hazard kinds that describe the same underlying phenomenon at different severities
+ * (e.g. [HazardKind.HIGH_HEAT] vs [HazardKind.EXTREME_HEAT]). De-duplication keeps only the most
+ * severe hazard per category, so a single condition never surfaces as two banners at once.
  */
-enum class HazardKind {
-    THUNDERSTORM,
-    HEAVY_SNOW,
-    SNOW_ICE,
-    HEAVY_RAIN,
-    RAIN_LIKELY,
-    DENSE_FOG,
-    LOW_VISIBILITY,
-    VIOLENT_GUSTS,
-    STRONG_GUSTS,
-    EXTREME_HEAT,
-    HIGH_HEAT,
-    SEVERE_COLD,
-    FREEZING,
-    POOR_AIR,
-    VERY_HIGH_UV,
-    NIGHT_RIDE
+enum class HazardCategory { STORM, SNOW, RAIN, VISIBILITY, GUSTS, HEAT, COLD, AIR, UV, NIGHT }
+
+/**
+ * Language-neutral identity of a hazard. Used for de-duplication in the domain and to look up the
+ * localized title/detail in the UI layer (the displayed text never lives in the domain). The
+ * [category] groups warning/danger variants of the same phenomenon for de-duplication.
+ */
+enum class HazardKind(val category: HazardCategory) {
+    THUNDERSTORM(HazardCategory.STORM),
+    HEAVY_SNOW(HazardCategory.SNOW),
+    SNOW_ICE(HazardCategory.SNOW),
+    HEAVY_RAIN(HazardCategory.RAIN),
+    RAIN_LIKELY(HazardCategory.RAIN),
+    DENSE_FOG(HazardCategory.VISIBILITY),
+    LOW_VISIBILITY(HazardCategory.VISIBILITY),
+    VIOLENT_GUSTS(HazardCategory.GUSTS),
+    STRONG_GUSTS(HazardCategory.GUSTS),
+    EXTREME_HEAT(HazardCategory.HEAT),
+    HIGH_HEAT(HazardCategory.HEAT),
+    SEVERE_COLD(HazardCategory.COLD),
+    FREEZING(HazardCategory.COLD),
+    POOR_AIR(HazardCategory.AIR),
+    VERY_HIGH_UV(HazardCategory.UV),
+    NIGHT_RIDE(HazardCategory.NIGHT)
 }
 
 /**

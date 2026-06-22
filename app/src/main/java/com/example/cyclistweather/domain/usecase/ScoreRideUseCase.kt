@@ -1,6 +1,7 @@
 package com.example.cyclistweather.domain.usecase
 
 import com.example.cyclistweather.core.common.RouteFormatters
+import com.example.cyclistweather.domain.model.HazardCategory
 import com.example.cyclistweather.domain.model.HazardKind
 import com.example.cyclistweather.domain.model.HazardSeverity
 import com.example.cyclistweather.domain.model.RideHazard
@@ -285,13 +286,14 @@ class ScoreRideUseCase {
     }
 
     private fun hazardsFor(segments: List<SegmentWeather>): List<RideHazard> {
-        val byKind = linkedMapOf<HazardKind, RideHazard>()
+        val byCategory = linkedMapOf<HazardCategory, RideHazard>()
 
         fun record(severity: HazardSeverity, kind: HazardKind, distanceLabel: String? = null, value: Int? = null) {
-            val existing = byKind[kind]
-            // Keep the most severe occurrence per hazard type.
+            val existing = byCategory[kind.category]
+            // Keep a single, most-severe hazard per category, so a warning and a danger describing
+            // the same phenomenon (e.g. high heat vs extreme heat) never surface together.
             if (existing == null || (existing.severity == HazardSeverity.WARNING && severity == HazardSeverity.DANGER)) {
-                byKind[kind] = RideHazard(severity, kind, distanceLabel, value)
+                byCategory[kind.category] = RideHazard(severity, kind, distanceLabel, value)
             }
         }
 
@@ -350,14 +352,14 @@ class ScoreRideUseCase {
         // Night is a property of the ride as a whole, not a single point.
         val nightSegments = segments.count { it.weather.isDay == false }
         if (nightSegments > 0 && nightSegments >= segments.size / 2) {
-            byKind.putIfAbsent(
-                HazardKind.NIGHT_RIDE,
+            byCategory.putIfAbsent(
+                HazardCategory.NIGHT,
                 RideHazard(HazardSeverity.WARNING, HazardKind.NIGHT_RIDE)
             )
         }
 
         // Danger first, then warnings.
-        return byKind.values.sortedByDescending { it.severity == HazardSeverity.DANGER }
+        return byCategory.values.sortedByDescending { it.severity == HazardSeverity.DANGER }
     }
 
     private companion object {
