@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     id("org.jetbrains.kotlin.plugin.serialization") version "2.3.21"
+    id("io.gitlab.arturbosch.detekt") version "1.23.7"
 }
 
 android {
@@ -39,6 +40,12 @@ android {
     buildFeatures {
         compose = true
     }
+}
+
+detekt {
+    buildUponDefaultConfig = true
+    config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
+    baseline = file("$rootDir/config/detekt/baseline.xml")
 }
 
 dependencies {
