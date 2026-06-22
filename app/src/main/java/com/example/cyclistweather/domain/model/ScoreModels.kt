@@ -10,8 +10,7 @@ data class SegmentScore(
     val visibilityScore: Int = 100,
     val airQualityScore: Int = 100,
     val uvScore: Int = 100,
-    val daylightScore: Int = 100,
-    val reasons: List<String>
+    val daylightScore: Int = 100
 )
 
 data class SegmentWeather(
@@ -24,7 +23,6 @@ data class SegmentWeather(
 
 data class RideScore(
     val total: Int,
-    val risks: List<String>,
     val bestSegments: List<SegmentWeather>,
     val worstSegments: List<SegmentWeather>,
     val hazards: List<RideHazard> = emptyList()

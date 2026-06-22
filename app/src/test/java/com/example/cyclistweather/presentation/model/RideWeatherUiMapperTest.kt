@@ -10,7 +10,6 @@ import com.example.cyclistweather.domain.model.RouteWeatherSnapshot
 import com.example.cyclistweather.domain.model.SegmentScore
 import com.example.cyclistweather.domain.model.SegmentWeather
 import com.example.cyclistweather.domain.model.WeatherPoint
-import com.example.cyclistweather.domain.model.WeatherDataFreshness
 import com.example.cyclistweather.domain.model.WindComponents
 import com.example.cyclistweather.domain.optimizer.DepartureCandidate
 import com.example.cyclistweather.domain.optimizer.DepartureOptimizationResult
@@ -42,12 +41,10 @@ class RideWeatherUiMapperTest {
         assertEquals("42.2 km", model.distance)
         assertEquals("+725 m", model.elevationGain)
         assertEquals("1h 55m", model.estimatedDuration)
-        assertEquals("22 km/h", model.averageSpeed)
-        assertEquals("2 points", model.pointCount)
     }
 
     @Test
-    fun `weather point ui model exposes distance arrival wind rain temp and risk text`() {
+    fun `weather point ui model exposes distance arrival wind rain temp and risk`() {
         val segment = segment(
             id = "ridge",
             distanceMeters = 12_300.0,
@@ -66,45 +63,23 @@ class RideWeatherUiMapperTest {
         assertEquals(RouteFormatters.formatClock(segment.sample.estimatedArrivalEpochMillis), model.arrivalTime)
         assertEquals("18 C", model.temperature)
         assertEquals("31 km/h SW", model.wind)
-        assertEquals("48% rain", model.rain)
-        assertEquals("Headwind", model.relativeWind)
-        assertEquals("Difficult", model.riskLabel)
+        // Unit-only value; the surrounding UI supplies the localized "Rain" label.
+        assertEquals("48%", model.rain)
         assertEquals(WeatherRiskLevel.RISK, model.riskLevel)
     }
 
     @Test
-    fun `ride score ui model exposes ride stats instead of only factor scores`() {
-        val cool = segment(
-            id = "cool",
-            distanceMeters = 0.0,
-            score = 80,
-            rainProbability = 10,
-            temperatureCelsius = 16.0,
-            windSpeedKmh = 8.0,
-            windDirectionDegrees = 225.0,
-            relativeWind = RelativeWind.HEADWIND
-        )
-        val warm = segment(
-            id = "warm",
-            distanceMeters = 2_000.0,
-            score = 90,
-            rainProbability = 40,
-            temperatureCelsius = 20.0,
-            windSpeedKmh = 12.0,
-            windDirectionDegrees = 225.0,
-            relativeWind = RelativeWind.HEADWIND
-        )
+    fun `ride score ui model exposes score and risk level`() {
         val score = RideScore(
             total = 85,
-            risks = emptyList(),
-            bestSegments = listOf(warm),
-            worstSegments = listOf(cool, warm)
+            bestSegments = emptyList(),
+            worstSegments = emptyList()
         )
 
         val model = RideWeatherUiMapper.rideScore(score)
 
-        assertEquals(listOf("Avg temp", "Avg wind", "Peak rain"), model.stats.map { it.label })
-        assertEquals(listOf("18 C", "10 km/h", "40%"), model.stats.map { it.value })
+        assertEquals(85, model.score)
+        assertEquals(WeatherRiskLevel.EXCELLENT, model.riskLevel)
     }
 
     @Test
@@ -138,31 +113,17 @@ class RideWeatherUiMapperTest {
     }
 
     @Test
-    fun `weather freshness labels explain offline cache state`() {
-        assertEquals("Live", RideWeatherUiMapper.weatherFreshness(WeatherDataFreshness.LIVE).label)
-        assertEquals("Cached", RideWeatherUiMapper.weatherFreshness(WeatherDataFreshness.FRESH_CACHE).label)
-        assertEquals("Offline", RideWeatherUiMapper.weatherFreshness(WeatherDataFreshness.STALE_CACHE).label)
-        assertTrue(
-            RideWeatherUiMapper.weatherFreshness(WeatherDataFreshness.STALE_CACHE)
-                .description
-                .contains("stale", ignoreCase = true)
-        )
-    }
-
-    @Test
-    fun `route weather summary exposes score checked time and freshness`() {
+    fun `route weather summary exposes score and checked time`() {
         val model = RideWeatherUiMapper.routeWeatherSummary(
             routeId = "route-1",
             score = 88,
-            checkedAtEpochMillis = 3_600_000L,
-            freshness = WeatherDataFreshness.FRESH_CACHE
+            checkedAtEpochMillis = 3_600_000L
         )
 
         assertEquals("route-1", model.routeId)
         assertEquals(88, model.score)
-        assertEquals("Excellent", model.label)
+        assertEquals(WeatherRiskLevel.EXCELLENT, model.riskLevel)
         assertEquals(RouteFormatters.formatClock(3_600_000L), model.checkedAt)
-        assertEquals("Cached", model.freshness.label)
     }
 
     private fun route(
@@ -207,7 +168,6 @@ class RideWeatherUiMapperTest {
             segmentWeather = segments,
             rideScore = RideScore(
                 total = score,
-                risks = listOf("Risk $score"),
                 bestSegments = segments,
                 worstSegments = segments
             )
@@ -260,8 +220,7 @@ class RideWeatherUiMapperTest {
                 temperatureScore = score,
                 rainScore = score,
                 gustScore = score,
-                cloudScore = score,
-                reasons = listOf("Reason $score")
+                cloudScore = score
             )
         )
     }
