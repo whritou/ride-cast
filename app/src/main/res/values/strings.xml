@@ -1,0 +1,260 @@
+<resources>
+    <string name="app_name">RideCast</string>
+
+    <!-- Generic actions -->
+    <string name="action_ok">OK</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_back">Back</string>
+    <string name="action_retry">Retry</string>
+    <string name="action_dismiss">Dismiss</string>
+    <string name="action_import_gpx">Import GPX</string>
+    <string name="action_importing">Importing</string>
+    <string name="action_demo_route">Demo route</string>
+    <string name="action_plan_departure">Plan departure</string>
+    <string name="action_export_gpx">Export GPX</string>
+
+    <!-- Units & shared values -->
+    <string name="value_placeholder">—</string>
+    <string name="unit_kmh">km/h</string>
+    <string name="speed_kmh_value">%1$d km/h</string>
+    <string name="value_with_category">%1$s · %2$s</string>
+
+    <!-- Route library -->
+    <string name="routes_title">Routes</string>
+    <string name="routes_your">Your routes</string>
+    <plurals name="route_count">
+        <item quantity="one">%d route</item>
+        <item quantity="other">%d routes</item>
+    </plurals>
+    <string name="route_tap_to_check">Tap to check the weather</string>
+    <string name="route_summary_line">%1$s · checked %2$s · %3$s</string>
+    <string name="empty_routes_title">No routes yet</string>
+    <string name="empty_routes_message">Use Import GPX above to add one of your rides, or tap Demo route to explore wind, rain, temperature, and the best departure time on a sample.</string>
+    <string name="banner_title">Plan with weather, ride with confidence</string>
+    <string name="banner_message">Check conditions along your route and find the best time to ride.</string>
+    <string name="banner_dismiss">Dismiss tip</string>
+
+    <!-- Data freshness -->
+    <string name="freshness_live">Live</string>
+    <string name="freshness_cached">Cached</string>
+    <string name="freshness_offline">Offline</string>
+
+    <!-- Route detail -->
+    <string name="detail_title">Details</string>
+    <string name="back_to_routes">Back to routes</string>
+    <string name="back_to_overview">Back to overview</string>
+    <string name="refresh_weather">Refresh weather</string>
+    <string name="add_departure_reminder">Add departure reminder</string>
+
+    <!-- Route fact strip -->
+    <string name="fact_distance">Distance</string>
+    <string name="fact_elevation_gain">Elev. gain</string>
+    <string name="fact_est_time">Est. time</string>
+    <string name="ride_outlook">Ride outlook</string>
+
+    <!-- Weather summary -->
+    <string name="summary_wind">Wind</string>
+    <string name="summary_wind_direction">%1$s wind</string>
+    <string name="summary_temp">Temp</string>
+    <string name="summary_rain">Rain</string>
+    <string name="summary_gusts">Gusts</string>
+
+    <!-- Conditions grid -->
+    <string name="conditions_title">Conditions along the road</string>
+    <string name="condition_uv">UV index</string>
+    <string name="condition_humidity">Humidity</string>
+    <string name="condition_air_quality">Air quality</string>
+    <string name="condition_visibility">Visibility</string>
+    <string name="condition_cloud_cover">Cloud cover</string>
+    <string name="condition_daylight">Daylight</string>
+    <string name="daylight_day">Day</string>
+    <string name="daylight_night">Night</string>
+    <string name="daylight_mixed">Mixed</string>
+    <string name="uv_low">Low</string>
+    <string name="uv_moderate">Moderate</string>
+    <string name="uv_high">High</string>
+    <string name="uv_very_high">Very high</string>
+    <string name="uv_extreme">Extreme</string>
+    <string name="aqi_good">Good</string>
+    <string name="aqi_fair">Fair</string>
+    <string name="aqi_moderate">Moderate</string>
+    <string name="aqi_poor">Poor</string>
+    <string name="aqi_very_poor">Very poor</string>
+    <string name="aqi_extreme">Extreme</string>
+
+    <!-- Map weather filters -->
+    <string name="filter_wind">Wind</string>
+    <string name="filter_temp">Temp</string>
+    <string name="filter_feels">Feels</string>
+    <string name="filter_rain">Rain</string>
+    <string name="filter_precip">Precip</string>
+    <string name="filter_clouds">Clouds</string>
+    <string name="filter_score">Score</string>
+
+    <!-- Map controls & legend -->
+    <string name="map_zoom_in">Zoom in</string>
+    <string name="map_zoom_out">Zoom out</string>
+    <string name="map_center_course">Center course</string>
+    <string name="map_open_fullscreen">Open full screen map</string>
+    <string name="map_close_fullscreen">Close full screen map</string>
+    <string name="map_close_inspection">Close inspection</string>
+    <string name="map_waiting_samples">Waiting for weather samples</string>
+
+    <!-- Ride quality / risk -->
+    <string name="risk_excellent">Excellent</string>
+    <string name="risk_good">Good</string>
+    <string name="risk_fair">Fair</string>
+    <string name="risk_caution">Caution</string>
+    <string name="risk_difficult">Difficult</string>
+    <string name="risk_risk">Risk</string>
+    <string name="risk_avoid">Avoid</string>
+    <string name="score_description">Ride score %1$d out of 100, %2$s</string>
+
+    <!-- Hazards -->
+    <string name="hazard_danger">Danger</string>
+    <string name="hazard_dangers">Dangerous conditions</string>
+    <string name="hazard_warning">Warning</string>
+    <string name="hazard_warnings">Warnings</string>
+
+    <!-- Loading states -->
+    <string name="loading_weather">Loading weather</string>
+    <string name="analysing_departure">Analysing best departure</string>
+
+    <!-- Departure planner -->
+    <string name="departure_best">Best departure</string>
+    <string name="departure_selected">Selected departure</string>
+    <string name="when_today">Today</string>
+    <string name="when_tomorrow">Tomorrow</string>
+    <string name="when_in_days">In %1$d days</string>
+    <string name="use_best_time">Use best time · %1$s (%2$d)</string>
+    <string name="departure_time">Departure time</string>
+    <string name="departure_time_hint">Tap to choose an exact time</string>
+    <string name="average_speed">Average speed</string>
+    <string name="average_speed_hint">Used to estimate arrival time at each waypoint</string>
+    <string name="weather_not_loaded_title">Weather not loaded</string>
+    <string name="weather_not_loaded_message">Refresh route weather to inspect the best departure.</string>
+    <string name="weather_unavailable_title">Weather unavailable</string>
+
+    <!-- Departure condition tabs & metrics -->
+    <string name="tab_summary">Summary</string>
+    <string name="tab_temp">Temp</string>
+    <string name="tab_wind">Wind</string>
+    <string name="tab_rain">Rain</string>
+    <string name="conditions_section_title">Conditions along the route</string>
+    <string name="point_start">Start</string>
+    <string name="point_finish">Finish</string>
+    <string name="metric_temp">Temp</string>
+    <string name="metric_rain">Rain</string>
+    <string name="metric_feels">Feels</string>
+    <string name="metric_sky">Sky</string>
+    <string name="metric_gusts">Gusts</string>
+    <string name="metric_course">Course</string>
+    <string name="metric_amount">Amount</string>
+    <string name="wind_headwind">Headwind</string>
+    <string name="wind_tailwind">Tailwind</string>
+    <string name="wind_crosswind">Crosswind</string>
+
+    <!-- Export snackbars -->
+    <string name="exported_route">Exported %1$s</string>
+    <string name="export_failed">Unable to export this route.</string>
+    <string name="export_create_failed">Unable to create the GPX export file.</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_average_speed">Average speed</string>
+    <string name="settings_speed_hint">Used to estimate arrival time at each waypoint.</string>
+    <string name="settings_appearance">Appearance</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="settings_language">Language</string>
+    <string name="language_system">System default</string>
+    <string name="settings_reminders">Departure reminders</string>
+    <string name="settings_reminders_title">Notify 1 hour before departure</string>
+    <string name="settings_reminders_hint">A reminder notification is scheduled when you add a departure reminder.</string>
+    <string name="settings_about">About</string>
+    <string name="settings_version">Version %1$s</string>
+    <string name="settings_about_blurb">Plan rides around the weather. Forecast &amp; air quality by Open-Meteo.</string>
+
+    <!-- Weather conditions (WMO codes) -->
+    <string name="wcond_clear">Clear</string>
+    <string name="wcond_mostly_clear">Mostly clear</string>
+    <string name="wcond_partly_cloudy">Partly cloudy</string>
+    <string name="wcond_overcast">Overcast</string>
+    <string name="wcond_fog">Fog</string>
+    <string name="wcond_drizzle">Drizzle</string>
+    <string name="wcond_rain">Rain</string>
+    <string name="wcond_snow">Snow</string>
+    <string name="wcond_storm">Storm</string>
+    <string name="wcond_unknown">Unknown</string>
+
+    <!-- Relative wind -->
+    <string name="relwind_headwind">Headwind</string>
+    <string name="relwind_tailwind">Tailwind</string>
+    <string name="relwind_crosswind_left">Crosswind L</string>
+    <string name="relwind_crosswind_right">Crosswind R</string>
+
+    <!-- Error messages -->
+    <string name="error_offline">Weather service unreachable. Your device can\'t reach api.open-meteo.com. Check Wi-Fi / mobile data, Private DNS, VPN, or an ad blocker, then tap Retry.</string>
+    <string name="error_generic">Unable to fetch route weather.</string>
+    <string name="gpx_import_failed">Unable to load this GPX route.</string>
+
+    <!-- Hazard titles -->
+    <string name="hz_thunderstorm_title">Thunderstorms</string>
+    <string name="hz_heavy_snow_title">Heavy snow</string>
+    <string name="hz_snow_ice_title">Snow / ice</string>
+    <string name="hz_heavy_rain_title">Heavy rain</string>
+    <string name="hz_rain_likely_title">Rain likely</string>
+    <string name="hz_dense_fog_title">Dense fog</string>
+    <string name="hz_low_visibility_title">Low visibility</string>
+    <string name="hz_violent_gusts_title">Violent gusts</string>
+    <string name="hz_strong_gusts_title">Strong gusts</string>
+    <string name="hz_extreme_heat_title">Extreme heat</string>
+    <string name="hz_high_heat_title">High heat</string>
+    <string name="hz_severe_cold_title">Severe cold</string>
+    <string name="hz_freezing_title">Freezing temps</string>
+    <string name="hz_poor_air_title">Poor air quality</string>
+    <string name="hz_uv_title">Very high UV</string>
+    <string name="hz_night_title">Night ride</string>
+
+    <!-- Hazard details (%1$s = distance, or %1$d value + %2$s distance) -->
+    <string name="hz_thunderstorm_detail">Storms expected near %1$s — avoid riding.</string>
+    <string name="hz_heavy_snow_detail">Heavy snow near %1$s — roads may be impassable.</string>
+    <string name="hz_snow_ice_detail">Snow near %1$s — watch for slippery roads.</string>
+    <string name="hz_heavy_rain_detail">Heavy rain near %1$s — reduced grip and visibility.</string>
+    <string name="hz_rain_likely_detail">Wet conditions near %1$s.</string>
+    <string name="hz_dense_fog_detail">Very low visibility near %1$s.</string>
+    <string name="hz_low_visibility_detail">Fog or haze near %1$s — use lights.</string>
+    <string name="hz_violent_gusts_detail">Gusts %1$d km/h near %2$s.</string>
+    <string name="hz_strong_gusts_detail">Gusts %1$d km/h near %2$s.</string>
+    <string name="hz_extreme_heat_detail">Feels %1$d°C near %2$s — heat risk.</string>
+    <string name="hz_high_heat_detail">Feels %1$d°C near %2$s — hydrate.</string>
+    <string name="hz_severe_cold_detail">Feels %1$d°C near %2$s — frostbite risk.</string>
+    <string name="hz_freezing_detail">Feels %1$d°C near %2$s — possible ice.</string>
+    <string name="hz_poor_air_detail">Air quality index %1$d near %2$s.</string>
+    <string name="hz_uv_detail">UV index %1$d — sun protection advised.</string>
+    <string name="hz_night_detail">Most of this ride is after dark — use lights and reflective gear.</string>
+
+    <!-- Map legend descriptions -->
+    <string name="leg_wind">Arrows show flow · labels show km/h</string>
+    <string name="leg_temperature">Temperature</string>
+    <string name="leg_feels_like">Feels like</string>
+    <string name="leg_rain_chance">Rain chance</string>
+    <string name="leg_precipitation">Precipitation</string>
+    <string name="leg_cloud_cover">Cloud cover</string>
+    <string name="leg_ride_score">Ride score</string>
+
+    <!-- Map legend scale labels -->
+    <string name="leg_dry">Dry</string>
+    <string name="leg_clear">Clear</string>
+    <string name="leg_hard">Hard</string>
+    <string name="leg_mixed">Mixed</string>
+    <string name="leg_good">Good</string>
+    <string name="leg_great">Great</string>
+    <string name="leg_best">Best</string>
+
+    <!-- Map legend chrome -->
+    <string name="map_legend_coverage">%1$s coverage</string>
+    <string name="map_wind_every">Wind every %1$s</string>
+    <string name="map_legend_pending">%1$s pending</string>
+</resources>

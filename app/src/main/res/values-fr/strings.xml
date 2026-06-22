@@ -1,0 +1,235 @@
+<resources>
+    <string name="app_name">RideCast</string>
+
+    <string name="action_ok">OK</string>
+    <string name="action_cancel">Annuler</string>
+    <string name="action_back">Retour</string>
+    <string name="action_retry">Réessayer</string>
+    <string name="action_dismiss">Ignorer</string>
+    <string name="action_import_gpx">Importer GPX</string>
+    <string name="action_importing">Importation</string>
+    <string name="action_demo_route">Itinéraire démo</string>
+    <string name="action_plan_departure">Planifier le départ</string>
+    <string name="action_export_gpx">Exporter GPX</string>
+
+    <string name="value_placeholder">—</string>
+    <string name="unit_kmh">km/h</string>
+    <string name="speed_kmh_value">%1$d km/h</string>
+    <string name="value_with_category">%1$s · %2$s</string>
+
+    <string name="routes_title">Itinéraires</string>
+    <string name="routes_your">Vos itinéraires</string>
+    <plurals name="route_count">
+        <item quantity="one">%d itinéraire</item>
+        <item quantity="other">%d itinéraires</item>
+    </plurals>
+    <string name="route_tap_to_check">Touchez pour voir la météo</string>
+    <string name="route_summary_line">%1$s · vérifié %2$s · %3$s</string>
+    <string name="empty_routes_title">Aucun itinéraire</string>
+    <string name="empty_routes_message">Utilisez Importer GPX ci-dessus pour ajouter une de vos sorties, ou touchez Itinéraire démo pour explorer le vent, la pluie, la température et le meilleur moment de départ sur un exemple.</string>
+    <string name="banner_title">Planifiez avec la météo, roulez en confiance</string>
+    <string name="banner_message">Vérifiez les conditions le long de votre itinéraire et trouvez le meilleur moment pour rouler.</string>
+    <string name="banner_dismiss">Ignorer le conseil</string>
+
+    <string name="freshness_live">En direct</string>
+    <string name="freshness_cached">En cache</string>
+    <string name="freshness_offline">Hors ligne</string>
+
+    <string name="detail_title">Détails</string>
+    <string name="back_to_routes">Retour aux itinéraires</string>
+    <string name="back_to_overview">Retour à l’aperçu</string>
+    <string name="refresh_weather">Actualiser la météo</string>
+    <string name="add_departure_reminder">Ajouter un rappel de départ</string>
+
+    <string name="fact_distance">Distance</string>
+    <string name="fact_elevation_gain">Dénivelé +</string>
+    <string name="fact_est_time">Durée est.</string>
+    <string name="ride_outlook">Aperçu sortie</string>
+
+    <string name="summary_wind">Vent</string>
+    <string name="summary_wind_direction">Vent %1$s</string>
+    <string name="summary_temp">Temp.</string>
+    <string name="summary_rain">Pluie</string>
+    <string name="summary_gusts">Rafales</string>
+
+    <string name="conditions_title">Conditions sur la route</string>
+    <string name="condition_uv">Indice UV</string>
+    <string name="condition_humidity">Humidité</string>
+    <string name="condition_air_quality">Qualité de l’air</string>
+    <string name="condition_visibility">Visibilité</string>
+    <string name="condition_cloud_cover">Couverture nuageuse</string>
+    <string name="condition_daylight">Luminosité</string>
+    <string name="daylight_day">Jour</string>
+    <string name="daylight_night">Nuit</string>
+    <string name="daylight_mixed">Mixte</string>
+    <string name="uv_low">Faible</string>
+    <string name="uv_moderate">Modéré</string>
+    <string name="uv_high">Élevé</string>
+    <string name="uv_very_high">Très élevé</string>
+    <string name="uv_extreme">Extrême</string>
+    <string name="aqi_good">Bonne</string>
+    <string name="aqi_fair">Correcte</string>
+    <string name="aqi_moderate">Modérée</string>
+    <string name="aqi_poor">Mauvaise</string>
+    <string name="aqi_very_poor">Très mauvaise</string>
+    <string name="aqi_extreme">Extrême</string>
+
+    <string name="filter_wind">Vent</string>
+    <string name="filter_temp">Temp.</string>
+    <string name="filter_feels">Ressenti</string>
+    <string name="filter_rain">Pluie</string>
+    <string name="filter_precip">Précip.</string>
+    <string name="filter_clouds">Nuages</string>
+    <string name="filter_score">Score</string>
+
+    <string name="map_zoom_in">Zoom avant</string>
+    <string name="map_zoom_out">Zoom arrière</string>
+    <string name="map_center_course">Centrer le parcours</string>
+    <string name="map_open_fullscreen">Ouvrir la carte en plein écran</string>
+    <string name="map_close_fullscreen">Fermer le plein écran</string>
+    <string name="map_close_inspection">Fermer l’inspection</string>
+    <string name="map_waiting_samples">En attente des relevés météo</string>
+
+    <string name="risk_excellent">Excellent</string>
+    <string name="risk_good">Bon</string>
+    <string name="risk_fair">Correct</string>
+    <string name="risk_caution">Prudence</string>
+    <string name="risk_difficult">Difficile</string>
+    <string name="risk_risk">Risque</string>
+    <string name="risk_avoid">À éviter</string>
+    <string name="score_description">Score de sortie %1$d sur 100, %2$s</string>
+
+    <string name="hazard_danger">Danger</string>
+    <string name="hazard_dangers">Conditions dangereuses</string>
+    <string name="hazard_warning">Avertissement</string>
+    <string name="hazard_warnings">Avertissements</string>
+
+    <string name="loading_weather">Chargement de la météo</string>
+    <string name="analysing_departure">Analyse du meilleur départ</string>
+
+    <string name="departure_best">Meilleur départ</string>
+    <string name="departure_selected">Départ sélectionné</string>
+    <string name="when_today">Aujourd’hui</string>
+    <string name="when_tomorrow">Demain</string>
+    <string name="when_in_days">Dans %1$d jours</string>
+    <string name="use_best_time">Utiliser le meilleur · %1$s (%2$d)</string>
+    <string name="departure_time">Heure de départ</string>
+    <string name="departure_time_hint">Touchez pour choisir une heure précise</string>
+    <string name="average_speed">Vitesse moyenne</string>
+    <string name="average_speed_hint">Sert à estimer l’heure d’arrivée à chaque point</string>
+    <string name="weather_not_loaded_title">Météo non chargée</string>
+    <string name="weather_not_loaded_message">Actualisez la météo de l’itinéraire pour voir le meilleur départ.</string>
+    <string name="weather_unavailable_title">Météo indisponible</string>
+
+    <string name="tab_summary">Résumé</string>
+    <string name="tab_temp">Temp.</string>
+    <string name="tab_wind">Vent</string>
+    <string name="tab_rain">Pluie</string>
+    <string name="conditions_section_title">Conditions le long de l’itinéraire</string>
+    <string name="point_start">Départ</string>
+    <string name="point_finish">Arrivée</string>
+    <string name="metric_temp">Temp.</string>
+    <string name="metric_rain">Pluie</string>
+    <string name="metric_feels">Ressenti</string>
+    <string name="metric_sky">Ciel</string>
+    <string name="metric_gusts">Rafales</string>
+    <string name="metric_course">Parcours</string>
+    <string name="metric_amount">Quantité</string>
+    <string name="wind_headwind">Vent de face</string>
+    <string name="wind_tailwind">Vent arrière</string>
+    <string name="wind_crosswind">Vent latéral</string>
+
+    <string name="exported_route">%1$s exporté</string>
+    <string name="export_failed">Impossible d’exporter cet itinéraire.</string>
+    <string name="export_create_failed">Impossible de créer le fichier GPX d’export.</string>
+
+    <string name="settings_title">Paramètres</string>
+    <string name="settings_average_speed">Vitesse moyenne</string>
+    <string name="settings_speed_hint">Sert à estimer l’heure d’arrivée à chaque point.</string>
+    <string name="settings_appearance">Apparence</string>
+    <string name="theme_system">Système</string>
+    <string name="theme_light">Clair</string>
+    <string name="theme_dark">Sombre</string>
+    <string name="settings_language">Langue</string>
+    <string name="language_system">Langue du système</string>
+    <string name="settings_reminders">Rappels de départ</string>
+    <string name="settings_reminders_title">Notifier 1 heure avant le départ</string>
+    <string name="settings_reminders_hint">Une notification de rappel est programmée lorsque vous ajoutez un rappel de départ.</string>
+    <string name="settings_about">À propos</string>
+    <string name="settings_version">Version %1$s</string>
+    <string name="settings_about_blurb">Planifiez vos sorties selon la météo. Prévisions et qualité de l’air par Open-Meteo.</string>
+
+    <string name="wcond_clear">Dégagé</string>
+    <string name="wcond_mostly_clear">Plutôt dégagé</string>
+    <string name="wcond_partly_cloudy">Partiellement nuageux</string>
+    <string name="wcond_overcast">Couvert</string>
+    <string name="wcond_fog">Brouillard</string>
+    <string name="wcond_drizzle">Bruine</string>
+    <string name="wcond_rain">Pluie</string>
+    <string name="wcond_snow">Neige</string>
+    <string name="wcond_storm">Orage</string>
+    <string name="wcond_unknown">Inconnu</string>
+
+    <string name="relwind_headwind">Vent de face</string>
+    <string name="relwind_tailwind">Vent arrière</string>
+    <string name="relwind_crosswind_left">Vent latéral G</string>
+    <string name="relwind_crosswind_right">Vent latéral D</string>
+
+    <string name="error_offline">Service météo injoignable. Votre appareil ne peut pas atteindre api.open-meteo.com. Vérifiez le Wi-Fi / les données mobiles, le DNS privé, le VPN ou un bloqueur de pub, puis touchez Réessayer.</string>
+    <string name="error_generic">Impossible de récupérer la météo de l’itinéraire.</string>
+    <string name="gpx_import_failed">Impossible de charger cet itinéraire GPX.</string>
+
+    <string name="hz_thunderstorm_title">Orages</string>
+    <string name="hz_heavy_snow_title">Fortes chutes de neige</string>
+    <string name="hz_snow_ice_title">Neige / verglas</string>
+    <string name="hz_heavy_rain_title">Fortes pluies</string>
+    <string name="hz_rain_likely_title">Pluie probable</string>
+    <string name="hz_dense_fog_title">Brouillard dense</string>
+    <string name="hz_low_visibility_title">Visibilité réduite</string>
+    <string name="hz_violent_gusts_title">Rafales violentes</string>
+    <string name="hz_strong_gusts_title">Fortes rafales</string>
+    <string name="hz_extreme_heat_title">Chaleur extrême</string>
+    <string name="hz_high_heat_title">Forte chaleur</string>
+    <string name="hz_severe_cold_title">Froid intense</string>
+    <string name="hz_freezing_title">Températures négatives</string>
+    <string name="hz_poor_air_title">Mauvaise qualité de l’air</string>
+    <string name="hz_uv_title">UV très élevés</string>
+    <string name="hz_night_title">Sortie de nuit</string>
+
+    <string name="hz_thunderstorm_detail">Orages attendus près de %1$s — évitez de rouler.</string>
+    <string name="hz_heavy_snow_detail">Fortes chutes de neige près de %1$s — routes peut-être impraticables.</string>
+    <string name="hz_snow_ice_detail">Neige près de %1$s — attention aux routes glissantes.</string>
+    <string name="hz_heavy_rain_detail">Fortes pluies près de %1$s — adhérence et visibilité réduites.</string>
+    <string name="hz_rain_likely_detail">Conditions humides près de %1$s.</string>
+    <string name="hz_dense_fog_detail">Visibilité très faible près de %1$s.</string>
+    <string name="hz_low_visibility_detail">Brouillard ou brume près de %1$s — allumez les feux.</string>
+    <string name="hz_violent_gusts_detail">Rafales de %1$d km/h près de %2$s.</string>
+    <string name="hz_strong_gusts_detail">Rafales de %1$d km/h près de %2$s.</string>
+    <string name="hz_extreme_heat_detail">Ressenti %1$d°C près de %2$s — risque de chaleur.</string>
+    <string name="hz_high_heat_detail">Ressenti %1$d°C près de %2$s — hydratez-vous.</string>
+    <string name="hz_severe_cold_detail">Ressenti %1$d°C près de %2$s — risque de gelures.</string>
+    <string name="hz_freezing_detail">Ressenti %1$d°C près de %2$s — verglas possible.</string>
+    <string name="hz_poor_air_detail">Indice de qualité de l’air %1$d près de %2$s.</string>
+    <string name="hz_uv_detail">Indice UV %1$d — protection solaire conseillée.</string>
+    <string name="hz_night_detail">La majeure partie de cette sortie est de nuit — utilisez feux et équipement réfléchissant.</string>
+
+    <string name="leg_wind">Les flèches montrent le flux · les libellés les km/h</string>
+    <string name="leg_temperature">Température</string>
+    <string name="leg_feels_like">Ressenti</string>
+    <string name="leg_rain_chance">Risque de pluie</string>
+    <string name="leg_precipitation">Précipitations</string>
+    <string name="leg_cloud_cover">Couverture nuageuse</string>
+    <string name="leg_ride_score">Score de sortie</string>
+
+    <string name="leg_dry">Sec</string>
+    <string name="leg_clear">Dégagé</string>
+    <string name="leg_hard">Difficile</string>
+    <string name="leg_mixed">Mitigé</string>
+    <string name="leg_good">Bon</string>
+    <string name="leg_great">Très bon</string>
+    <string name="leg_best">Idéal</string>
+
+    <string name="map_legend_coverage">Couverture %1$s</string>
+    <string name="map_wind_every">Vent tous les %1$s</string>
+    <string name="map_legend_pending">%1$s en attente</string>
+</resources>
