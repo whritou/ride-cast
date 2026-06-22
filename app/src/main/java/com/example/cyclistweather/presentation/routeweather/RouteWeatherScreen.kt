@@ -203,7 +203,8 @@ fun RouteWeatherScreen(
                             onSetDepartureDate = actions::setDepartureDate,
                             onSetDepartureTime = actions::setDepartureTime,
                             onSetAverageSpeed = actions::setAverageSpeed,
-                            onUseBestDeparture = actions::applyOptimizedDeparture
+                            onUseBestDeparture = actions::applyOptimizedDeparture,
+                            onReoptimize = { actions.optimizeDeparture(false) }
                         )
                     }
                 }

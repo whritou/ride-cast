@@ -98,7 +98,7 @@ class RideWeatherUiMapperTest {
             candidates = listOf(current, best),
             bestCandidate = best,
             currentCandidate = current,
-            reasons = listOf("Lower rain risk across the ride.")
+            reasons = emptyList()
         )
 
         val scenarios = RideWeatherUiMapper.departureScenarios(result)
@@ -108,8 +108,8 @@ class RideWeatherUiMapperTest {
         assertFalse(scenarios.first { it.score == 88 }.isCurrent)
         assertFalse(scenarios.first { it.score == 61 }.isBest)
         assertTrue(scenarios.first { it.score == 61 }.isCurrent)
-        assertEquals("Excellent", scenarios.first { it.score == 88 }.label)
-        assertEquals("Fair", scenarios.first { it.score == 61 }.label)
+        assertEquals(WeatherRiskLevel.EXCELLENT, scenarios.first { it.score == 88 }.riskLevel)
+        assertEquals(WeatherRiskLevel.CAUTION, scenarios.first { it.score == 61 }.riskLevel)
     }
 
     @Test

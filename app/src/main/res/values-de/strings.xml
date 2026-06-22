@@ -117,6 +117,19 @@
     <string name="departure_time_hint">Tippen, um eine genaue Zeit zu wählen</string>
     <string name="average_speed">Durchschnittstempo</string>
     <string name="average_speed_hint">Dient zur Schätzung der Ankunftszeit an jedem Wegpunkt</string>
+    <!-- Departure planner — window comparison & recommendation reasons -->
+    <string name="departure_compare_title">Zeitfenster vergleichen</string>
+    <string name="departure_why_title">Warum dieses Fenster</string>
+    <string name="departure_find_best">Bestes Fenster finden</string>
+    <string name="departure_finding_best">Bestes Fenster wird gesucht…</string>
+    <string name="departure_marker_best">Optimal</string>
+    <string name="departure_marker_current">Aktuell</string>
+    <string name="reason_already_best">Deine gewählte Abfahrt ist bereits das bestbewertete Zeitfenster.</string>
+    <string name="reason_score_gain">Verbessert den Fahrt-Score um %1$d Punkte.</string>
+    <string name="reason_less_rain">Geringeres Regenrisiko auf der gesamten Fahrt.</string>
+    <string name="reason_less_headwind">Weniger Gegenwind auf den analysierten Abschnitten.</string>
+    <string name="reason_better_temp">Angenehmeres Temperaturfenster.</string>
+    <string name="reason_best_overall">Bester Gesamt-Wetterscore im untersuchten Zeitraum.</string>
     <string name="weather_not_loaded_title">Wetter nicht geladen</string>
     <string name="weather_not_loaded_message">Aktualisiere das Routenwetter, um die beste Abfahrt zu sehen.</string>
     <string name="weather_unavailable_title">Wetter nicht verfügbar</string>
