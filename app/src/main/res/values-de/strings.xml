@@ -24,6 +24,17 @@
         <item quantity="other">%d Routen</item>
     </plurals>
     <string name="route_tap_to_check">Tippen, um das Wetter zu prüfen</string>
+    <!-- Route management: favorite, rename, delete -->
+    <string name="route_options">Routenoptionen</string>
+    <string name="route_action_rename">Umbenennen</string>
+    <string name="route_action_delete">Löschen</string>
+    <string name="route_favorite_add">Zu Favoriten hinzufügen</string>
+    <string name="route_favorite_remove">Aus Favoriten entfernen</string>
+    <string name="route_delete_title">Route löschen?</string>
+    <string name="route_delete_message">„%1$s“ wird aus deiner Bibliothek entfernt. Das kann nicht rückgängig gemacht werden.</string>
+    <string name="route_rename_title">Route umbenennen</string>
+    <string name="route_rename_label">Routenname</string>
+    <string name="action_save">Speichern</string>
     <string name="route_summary_line">%1$s · geprüft %2$s · %3$s</string>
     <string name="empty_routes_title">Noch keine Routen</string>
     <string name="empty_routes_message">Nutze oben „GPX importieren“, um eine deiner Touren hinzuzufügen, oder tippe auf „Demo-Route“, um Wind, Regen, Temperatur und die beste Abfahrtszeit an einem Beispiel zu erkunden.</string>

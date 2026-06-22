@@ -137,6 +137,9 @@ fun CyclistWeatherApp(viewModel: CyclistWeatherViewModel) {
                     onImportRoute = launchImport,
                     onLoadDemoRoute = viewModel::loadDemoRoute,
                     onOpenRoute = viewModel::openRoute,
+                    onDeleteRoute = viewModel::deleteRoute,
+                    onRenameRoute = viewModel::renameRoute,
+                    onToggleFavorite = viewModel::setRouteFavorite,
                     onDismissError = viewModel::clearError,
                     routeWeatherActions = routeWeatherActions,
                     onOpenSettings = { showSettings = true }

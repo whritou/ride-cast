@@ -4,6 +4,7 @@ import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -22,11 +23,21 @@ import androidx.compose.material.icons.automirrored.filled.DirectionsBike
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Explore
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Route
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.StarBorder
 import androidx.compose.material.icons.filled.Terrain
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -71,6 +82,9 @@ fun RouteScreen(
     onImportRoute: () -> Unit,
     onLoadDemoRoute: () -> Unit,
     onOpenRoute: (String) -> Unit,
+    onDeleteRoute: (String) -> Unit,
+    onRenameRoute: (String, String) -> Unit,
+    onToggleFavorite: (String, Boolean) -> Unit,
     onDismissError: () -> Unit,
     routeWeatherActions: RouteWeatherActions,
     onOpenSettings: () -> Unit
@@ -95,6 +109,9 @@ fun RouteScreen(
                 onImportRoute = onImportRoute,
                 onLoadDemoRoute = onLoadDemoRoute,
                 onOpenRoute = onOpenRoute,
+                onDeleteRoute = onDeleteRoute,
+                onRenameRoute = onRenameRoute,
+                onToggleFavorite = onToggleFavorite,
                 onDismissError = onDismissError,
                 onOpenSettings = onOpenSettings
             )
@@ -109,6 +126,9 @@ private fun RouteLibraryScreen(
     onImportRoute: () -> Unit,
     onLoadDemoRoute: () -> Unit,
     onOpenRoute: (String) -> Unit,
+    onDeleteRoute: (String) -> Unit,
+    onRenameRoute: (String, String) -> Unit,
+    onToggleFavorite: (String, Boolean) -> Unit,
     onDismissError: () -> Unit,
     onOpenSettings: () -> Unit
 ) {
@@ -142,7 +162,10 @@ private fun RouteLibraryScreen(
                     route = route,
                     averageSpeedKmh = state.averageSpeedKmh,
                     summary = state.routeWeatherSummaries[route.id],
-                    onOpen = { onOpenRoute(route.id) }
+                    onOpen = { onOpenRoute(route.id) },
+                    onDelete = { onDeleteRoute(route.id) },
+                    onRename = { newName -> onRenameRoute(route.id, newName) },
+                    onToggleFavorite = { onToggleFavorite(route.id, !route.isFavorite) }
                 )
             }
         }
@@ -264,7 +287,10 @@ private fun RouteLibraryRow(
     route: ImportedRoute,
     averageSpeedKmh: Double,
     summary: RouteWeatherSummarySnapshot?,
-    onOpen: () -> Unit
+    onOpen: () -> Unit,
+    onDelete: () -> Unit,
+    onRename: (String) -> Unit,
+    onToggleFavorite: () -> Unit
 ) {
     val model = RideWeatherUiMapper.route(route, averageSpeedKmh)
     val summaryModel = summary?.let {
@@ -275,62 +301,221 @@ private fun RouteLibraryRow(
         )
     }
     val outlook = summaryModel?.score ?: remember(route.id) { routeOutlookScore(route) }
-    RouteFirstPanel(
-        modifier = Modifier
-            .clickable(onClickLabel = "Open route", role = Role.Button, onClick = onOpen)
-            .semantics(mergeDescendants = true) {}
-    ) {
+    var showRenameDialog by remember(route.id) { mutableStateOf(false) }
+    var showDeleteDialog by remember(route.id) { mutableStateOf(false) }
+
+    RouteFirstPanel {
         Row(
             modifier = Modifier.padding(Spacing.md),
-            horizontalArrangement = Arrangement.spacedBy(Spacing.md),
+            horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            RouteThumbnail(
-                route = route,
+            // Opening the route is one tap target; the row menu is a separate one beside it.
+            Row(
                 modifier = Modifier
-                    .width(104.dp)
-                    .height(80.dp)
-            )
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(Spacing.xs)
+                    .weight(1f)
+                    .clickable(onClickLabel = "Open route", role = Role.Button, onClick = onOpen)
+                    .semantics(mergeDescendants = true) {},
+                horizontalArrangement = Arrangement.spacedBy(Spacing.md),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = model.name,
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.SemiBold,
-                    color = RideWeatherColors.TextPrimary,
-                    maxLines = 1
+                RouteThumbnail(
+                    route = route,
+                    modifier = Modifier
+                        .width(104.dp)
+                        .height(80.dp)
                 )
-                Text(
-                    text = "${compactKm(route.totalDistanceMeters)}  ·  ${elevationLabel(route)}  ·  ${model.estimatedDuration}",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = RideWeatherColors.TextSecondary
-                )
-                if (summaryModel != null) {
-                    // Quality is shown by the badge color + label text; keep this line in a
-                    // readable secondary tone rather than a low-contrast score hue.
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(Spacing.xs)
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        if (route.isFavorite) {
+                            Icon(
+                                imageVector = Icons.Filled.Star,
+                                contentDescription = null,
+                                tint = RideWeatherColors.Accent,
+                                modifier = Modifier.size(16.dp)
+                            )
+                        }
+                        Text(
+                            text = model.name,
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.SemiBold,
+                            color = RideWeatherColors.TextPrimary,
+                            maxLines = 1
+                        )
+                    }
                     Text(
-                        text = stringResource(
-                            R.string.route_summary_line,
-                            stringResource(summaryModel.riskLevel.labelRes),
-                            summaryModel.checkedAt,
-                            stringResource(freshnessLabelRes(summary.freshness()))
-                        ),
-                        style = MaterialTheme.typography.bodySmall,
+                        text = "${compactKm(route.totalDistanceMeters)}  ·  ${elevationLabel(route)}  ·  ${model.estimatedDuration}",
+                        style = MaterialTheme.typography.bodyMedium,
                         color = RideWeatherColors.TextSecondary
                     )
-                } else {
-                    Text(
-                        text = stringResource(R.string.route_tap_to_check),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = RideWeatherColors.TextSecondary
-                    )
+                    if (summaryModel != null) {
+                        // Quality is shown by the badge color + label text; keep this line in a
+                        // readable secondary tone rather than a low-contrast score hue.
+                        Text(
+                            text = stringResource(
+                                R.string.route_summary_line,
+                                stringResource(summaryModel.riskLevel.labelRes),
+                                summaryModel.checkedAt,
+                                stringResource(freshnessLabelRes(summary.freshness()))
+                            ),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = RideWeatherColors.TextSecondary
+                        )
+                    } else {
+                        Text(
+                            text = stringResource(R.string.route_tap_to_check),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = RideWeatherColors.TextSecondary
+                        )
+                    }
                 }
+                RideScoreBadge(score = outlook)
             }
-            RideScoreBadge(score = outlook)
+            RouteRowMenu(
+                isFavorite = route.isFavorite,
+                onToggleFavorite = onToggleFavorite,
+                onRenameRequest = { showRenameDialog = true },
+                onDeleteRequest = { showDeleteDialog = true }
+            )
         }
     }
+
+    if (showRenameDialog) {
+        RenameRouteDialog(
+            initialName = route.name,
+            onConfirm = {
+                onRename(it)
+                showRenameDialog = false
+            },
+            onDismiss = { showRenameDialog = false }
+        )
+    }
+    if (showDeleteDialog) {
+        DeleteRouteDialog(
+            routeName = route.name,
+            onConfirm = {
+                onDelete()
+                showDeleteDialog = false
+            },
+            onDismiss = { showDeleteDialog = false }
+        )
+    }
+}
+
+@Composable
+private fun RouteRowMenu(
+    isFavorite: Boolean,
+    onToggleFavorite: () -> Unit,
+    onRenameRequest: () -> Unit,
+    onDeleteRequest: () -> Unit
+) {
+    var expanded by remember { mutableStateOf(false) }
+    Box {
+        IconButton(onClick = { expanded = true }) {
+            Icon(
+                imageVector = Icons.Filled.MoreVert,
+                contentDescription = stringResource(R.string.route_options),
+                tint = RideWeatherColors.TextSecondary
+            )
+        }
+        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+            DropdownMenuItem(
+                text = {
+                    Text(
+                        stringResource(
+                            if (isFavorite) R.string.route_favorite_remove else R.string.route_favorite_add
+                        )
+                    )
+                },
+                leadingIcon = {
+                    Icon(
+                        imageVector = if (isFavorite) Icons.Filled.Star else Icons.Filled.StarBorder,
+                        contentDescription = null
+                    )
+                },
+                onClick = {
+                    expanded = false
+                    onToggleFavorite()
+                }
+            )
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.route_action_rename)) },
+                leadingIcon = { Icon(Icons.Filled.Edit, contentDescription = null) },
+                onClick = {
+                    expanded = false
+                    onRenameRequest()
+                }
+            )
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.route_action_delete)) },
+                leadingIcon = { Icon(Icons.Filled.Delete, contentDescription = null) },
+                onClick = {
+                    expanded = false
+                    onDeleteRequest()
+                }
+            )
+        }
+    }
+}
+
+@Composable
+private fun RenameRouteDialog(
+    initialName: String,
+    onConfirm: (String) -> Unit,
+    onDismiss: () -> Unit
+) {
+    var text by remember { mutableStateOf(initialName) }
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.route_rename_title)) },
+        text = {
+            OutlinedTextField(
+                value = text,
+                onValueChange = { text = it },
+                singleLine = true,
+                label = { Text(stringResource(R.string.route_rename_label)) }
+            )
+        },
+        confirmButton = {
+            TextButton(onClick = { onConfirm(text) }, enabled = text.isNotBlank()) {
+                Text(stringResource(R.string.action_save))
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text(stringResource(R.string.action_cancel))
+            }
+        }
+    )
+}
+
+@Composable
+private fun DeleteRouteDialog(
+    routeName: String,
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.route_delete_title)) },
+        text = { Text(stringResource(R.string.route_delete_message, routeName)) },
+        confirmButton = {
+            TextButton(onClick = onConfirm) {
+                Text(stringResource(R.string.route_action_delete))
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text(stringResource(R.string.action_cancel))
+            }
+        }
+    )
 }
 
 @Composable

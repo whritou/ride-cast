@@ -27,6 +27,17 @@
         <item quantity="other">%d routes</item>
     </plurals>
     <string name="route_tap_to_check">Tap to check the weather</string>
+    <!-- Route management: favorite, rename, delete -->
+    <string name="route_options">Route options</string>
+    <string name="route_action_rename">Rename</string>
+    <string name="route_action_delete">Delete</string>
+    <string name="route_favorite_add">Add to favorites</string>
+    <string name="route_favorite_remove">Remove from favorites</string>
+    <string name="route_delete_title">Delete route?</string>
+    <string name="route_delete_message">“%1$s” will be removed from your library. This can\'t be undone.</string>
+    <string name="route_rename_title">Rename route</string>
+    <string name="route_rename_label">Route name</string>
+    <string name="action_save">Save</string>
     <string name="route_summary_line">%1$s · checked %2$s · %3$s</string>
     <string name="empty_routes_title">No routes yet</string>
     <string name="empty_routes_message">Use Import GPX above to add one of your rides, or tap Demo route to explore wind, rain, temperature, and the best departure time on a sample.</string>

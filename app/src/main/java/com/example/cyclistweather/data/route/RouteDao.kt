@@ -9,7 +9,7 @@ import androidx.room.Transaction
 @Dao
 interface RouteDao {
     @Transaction
-    @Query("SELECT * FROM routes ORDER BY createdAtEpochMillis DESC")
+    @Query("SELECT * FROM routes ORDER BY isFavorite DESC, createdAtEpochMillis DESC")
     suspend fun getRoutesWithPoints(): List<RouteWithPoints>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -23,6 +23,12 @@ interface RouteDao {
 
     @Query("DELETE FROM routes WHERE id = :routeId")
     suspend fun deleteRoute(routeId: String)
+
+    @Query("UPDATE routes SET name = :name WHERE id = :routeId")
+    suspend fun renameRoute(routeId: String, name: String)
+
+    @Query("UPDATE routes SET isFavorite = :isFavorite WHERE id = :routeId")
+    suspend fun setFavorite(routeId: String, isFavorite: Boolean)
 
     @Query("SELECT COUNT(*) FROM routes")
     suspend fun routeCount(): Int

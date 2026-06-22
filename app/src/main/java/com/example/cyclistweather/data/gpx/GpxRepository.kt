@@ -14,6 +14,8 @@ interface GpxRepository {
     suspend fun getRoutes(): List<ImportedRoute>
     suspend fun getRoute(routeId: String): ImportedRoute?
     suspend fun deleteRoute(routeId: String)
+    suspend fun renameRoute(routeId: String, name: String)
+    suspend fun setFavorite(routeId: String, favorite: Boolean)
 }
 
 class LocalGpxRepository(
@@ -61,6 +63,14 @@ class LocalGpxRepository(
 
     override suspend fun deleteRoute(routeId: String) = withContext(Dispatchers.IO) {
         routeStore.deleteRoute(routeId)
+    }
+
+    override suspend fun renameRoute(routeId: String, name: String) = withContext(Dispatchers.IO) {
+        routeStore.renameRoute(routeId, name)
+    }
+
+    override suspend fun setFavorite(routeId: String, favorite: Boolean) = withContext(Dispatchers.IO) {
+        routeStore.setFavorite(routeId, favorite)
     }
 
     private fun displayNameFor(uri: Uri): String {
