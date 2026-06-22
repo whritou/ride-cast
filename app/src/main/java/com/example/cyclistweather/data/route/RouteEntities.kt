@@ -15,7 +15,8 @@ data class RouteEntity(
     val name: String,
     val totalDistanceMeters: Double,
     val totalElevationGainMeters: Double?,
-    val createdAtEpochMillis: Long
+    val createdAtEpochMillis: Long,
+    val isFavorite: Boolean = false
 )
 
 @Entity(
@@ -67,7 +68,8 @@ data class RouteWithPoints(
             },
             totalDistanceMeters = route.totalDistanceMeters,
             totalElevationGainMeters = route.totalElevationGainMeters,
-            createdAtEpochMillis = route.createdAtEpochMillis
+            createdAtEpochMillis = route.createdAtEpochMillis,
+            isFavorite = route.isFavorite
         )
     }
 }
@@ -78,7 +80,8 @@ fun ImportedRoute.toRouteEntity(): RouteEntity {
         name = name,
         totalDistanceMeters = totalDistanceMeters,
         totalElevationGainMeters = totalElevationGainMeters,
-        createdAtEpochMillis = createdAtEpochMillis
+        createdAtEpochMillis = createdAtEpochMillis,
+        isFavorite = isFavorite
     )
 }
 

@@ -117,6 +117,58 @@ class CyclistWeatherViewModelTest {
         assertTrue(state.routeWeatherState is RouteWeatherLoadState.Idle)
     }
 
+    @Test
+    fun `deleting a route removes it from the library`() = runTest {
+        val route = route()
+        val viewModel = viewModel(routes = listOf(route))
+        advanceUntilIdle()
+
+        viewModel.deleteRoute(route.id)
+        advanceUntilIdle()
+
+        assertTrue(viewModel.uiState.value.routes.isEmpty())
+    }
+
+    @Test
+    fun `renaming a route trims the name and updates library and selection`() = runTest {
+        val route = route()
+        val viewModel = viewModel(routes = listOf(route))
+        advanceUntilIdle()
+        viewModel.openRoute(route.id)
+        advanceUntilIdle()
+
+        viewModel.renameRoute(route.id, "  Sunday loop  ")
+        advanceUntilIdle()
+
+        val state = viewModel.uiState.value
+        assertEquals("Sunday loop", state.routes.first().name)
+        assertEquals("Sunday loop", state.selectedRoute?.name)
+    }
+
+    @Test
+    fun `a blank rename is ignored`() = runTest {
+        val route = route()
+        val viewModel = viewModel(routes = listOf(route))
+        advanceUntilIdle()
+
+        viewModel.renameRoute(route.id, "   ")
+        advanceUntilIdle()
+
+        assertEquals("Test route", viewModel.uiState.value.routes.first().name)
+    }
+
+    @Test
+    fun `favoriting a route persists the flag in state`() = runTest {
+        val route = route()
+        val viewModel = viewModel(routes = listOf(route))
+        advanceUntilIdle()
+
+        viewModel.setRouteFavorite(route.id, true)
+        advanceUntilIdle()
+
+        assertTrue(viewModel.uiState.value.routes.first().isFavorite)
+    }
+
     private fun viewModel(
         routes: List<ImportedRoute>,
         settings: AppSettingsRepository = FakeAppSettingsRepository(),
@@ -154,6 +206,12 @@ class CyclistWeatherViewModelTest {
         override suspend fun getRoute(routeId: String): ImportedRoute? = routes.firstOrNull { it.id == routeId }
         override suspend fun deleteRoute(routeId: String) {
             routes = routes.filterNot { it.id == routeId }
+        }
+        override suspend fun renameRoute(routeId: String, name: String) {
+            routes = routes.map { if (it.id == routeId) it.copy(name = name) else it }
+        }
+        override suspend fun setFavorite(routeId: String, favorite: Boolean) {
+            routes = routes.map { if (it.id == routeId) it.copy(isFavorite = favorite) else it }
         }
     }
 

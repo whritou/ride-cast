@@ -18,7 +18,10 @@ class LocalRouteStore(
         migrateLegacyRoutesIfNeeded()
         return routeDao.getRoutesWithPoints()
             .mapNotNull { it.toDomain() }
-            .sortedByDescending { it.createdAtEpochMillis }
+            .sortedWith(
+                compareByDescending<ImportedRoute> { it.isFavorite }
+                    .thenByDescending { it.createdAtEpochMillis }
+            )
     }
 
     suspend fun upsertRoute(route: ImportedRoute) {
@@ -30,6 +33,14 @@ class LocalRouteStore(
 
     suspend fun deleteRoute(routeId: String) {
         routeDao.deleteRoute(routeId)
+    }
+
+    suspend fun renameRoute(routeId: String, name: String) {
+        routeDao.renameRoute(routeId, name)
+    }
+
+    suspend fun setFavorite(routeId: String, favorite: Boolean) {
+        routeDao.setFavorite(routeId, favorite)
     }
 
     private suspend fun migrateLegacyRoutesIfNeeded() {

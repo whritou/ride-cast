@@ -94,6 +94,30 @@ class CyclistWeatherViewModel(
         }
     }
 
+    fun renameRoute(routeId: String, name: String) {
+        val trimmed = name.trim()
+        if (trimmed.isEmpty()) return
+        viewModelScope.launch {
+            gpxRepository.renameRoute(routeId, trimmed)
+            val routes = gpxRepository.getRoutes()
+            _uiState.update { state ->
+                state.copy(
+                    routes = routes,
+                    selectedRoute = state.selectedRoute?.let { selected ->
+                        if (selected.id == routeId) selected.copy(name = trimmed) else selected
+                    }
+                )
+            }
+        }
+    }
+
+    fun setRouteFavorite(routeId: String, favorite: Boolean) {
+        viewModelScope.launch {
+            gpxRepository.setFavorite(routeId, favorite)
+            _uiState.update { it.copy(routes = gpxRepository.getRoutes()) }
+        }
+    }
+
     fun clearError() {
         _uiState.update { it.copy(errorMessageRes = null) }
     }
