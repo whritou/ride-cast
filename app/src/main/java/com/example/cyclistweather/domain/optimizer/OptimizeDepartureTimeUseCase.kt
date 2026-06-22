@@ -72,9 +72,9 @@ class OptimizeDepartureTimeUseCase(
     private fun recommendationReasons(
         bestCandidate: DepartureCandidate,
         currentCandidate: DepartureCandidate
-    ): List<String> {
+    ): List<RecommendationReason> {
         if (bestCandidate.departureEpochMillis == currentCandidate.departureEpochMillis) {
-            return listOf("Your selected departure is already the best-scoring window.")
+            return listOf(RecommendationReason(RecommendationReasonKind.ALREADY_BEST))
         }
 
         val bestSegments = bestCandidate.snapshot.segmentWeather
@@ -83,19 +83,19 @@ class OptimizeDepartureTimeUseCase(
 
         return buildList {
             if (scoreGain > 0) {
-                add("Improves ride score by $scoreGain points.")
+                add(RecommendationReason(RecommendationReasonKind.SCORE_GAIN, scoreGain))
             }
             if (averageRain(currentSegments) - averageRain(bestSegments) >= 5.0) {
-                add("Lower rain risk across the ride.")
+                add(RecommendationReason(RecommendationReasonKind.LESS_RAIN))
             }
             if (averageHeadwind(currentSegments) - averageHeadwind(bestSegments) >= 2.0) {
-                add("Less headwind on sampled segments.")
+                add(RecommendationReason(RecommendationReasonKind.LESS_HEADWIND))
             }
             if (temperatureDiscomfort(currentSegments) - temperatureDiscomfort(bestSegments) >= 2.0) {
-                add("More comfortable temperature window.")
+                add(RecommendationReason(RecommendationReasonKind.BETTER_TEMP))
             }
             if (isEmpty()) {
-                add("Best overall weather score in the scanned window.")
+                add(RecommendationReason(RecommendationReasonKind.BEST_OVERALL))
             }
         }
     }

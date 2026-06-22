@@ -19,10 +19,29 @@ data class DepartureCandidate(
     val snapshot: RouteWeatherSnapshot
 )
 
+/**
+ * Language-neutral identity of a recommendation reason. The UI layer maps each [kind] to a
+ * localized string; [value] carries the only number a reason needs (the score gain for
+ * [RecommendationReasonKind.SCORE_GAIN]).
+ */
+enum class RecommendationReasonKind {
+    ALREADY_BEST,
+    SCORE_GAIN,
+    LESS_RAIN,
+    LESS_HEADWIND,
+    BETTER_TEMP,
+    BEST_OVERALL
+}
+
+data class RecommendationReason(
+    val kind: RecommendationReasonKind,
+    val value: Int? = null
+)
+
 data class DepartureOptimizationResult(
     val requestedDepartureEpochMillis: Long,
     val candidates: List<DepartureCandidate>,
     val bestCandidate: DepartureCandidate,
     val currentCandidate: DepartureCandidate,
-    val reasons: List<String>
+    val reasons: List<RecommendationReason>
 )

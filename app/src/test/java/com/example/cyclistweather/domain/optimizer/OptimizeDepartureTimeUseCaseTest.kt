@@ -108,10 +108,10 @@ class OptimizeDepartureTimeUseCaseTest {
         )
 
         assertEquals(bestDeparture, result.bestCandidate.departureEpochMillis)
-        assertTrue(result.reasons.contains("Improves ride score by 27 points."))
-        assertTrue(result.reasons.contains("Lower rain risk across the ride."))
-        assertTrue(result.reasons.contains("Less headwind on sampled segments."))
-        assertTrue(result.reasons.contains("More comfortable temperature window."))
+        assertTrue(result.reasons.any { it.kind == RecommendationReasonKind.SCORE_GAIN && it.value == 27 })
+        assertTrue(result.reasons.any { it.kind == RecommendationReasonKind.LESS_RAIN })
+        assertTrue(result.reasons.any { it.kind == RecommendationReasonKind.LESS_HEADWIND })
+        assertTrue(result.reasons.any { it.kind == RecommendationReasonKind.BETTER_TEMP })
     }
 
     private fun utcMillis(
@@ -187,8 +187,7 @@ class OptimizeDepartureTimeUseCaseTest {
                     temperatureScore = score,
                     rainScore = score,
                     gustScore = score,
-                    cloudScore = score,
-                    reasons = emptyList()
+                    cloudScore = score
                 )
             )
         }
@@ -199,7 +198,6 @@ class OptimizeDepartureTimeUseCaseTest {
             segmentWeather = segments,
             rideScore = RideScore(
                 total = score,
-                risks = emptyList(),
                 bestSegments = segments,
                 worstSegments = segments
             )

@@ -39,7 +39,8 @@ internal fun BestDepartureContent(
     onSetDepartureDate: (Long) -> Unit,
     onSetDepartureTime: (Int, Int) -> Unit,
     onSetAverageSpeed: (Double) -> Unit,
-    onUseBestDeparture: (Long) -> Unit
+    onUseBestDeparture: (Long) -> Unit,
+    onReoptimize: () -> Unit
 ) {
     when (routeWeatherState) {
         RouteWeatherLoadState.Idle -> StatusCard(
@@ -94,6 +95,12 @@ internal fun BestDepartureContent(
                 AverageSpeedInput(
                     averageSpeedKmh = averageSpeedKmh,
                     onSetAverageSpeed = onSetAverageSpeed
+                )
+                DepartureWindowSection(
+                    optimizationState = departureOptimizationState,
+                    selectedDepartureEpochMillis = departure,
+                    onSelectWindow = onUseBestDeparture,
+                    onReoptimize = onReoptimize
                 )
                 ConditionsSection(
                     snapshot = snapshot,

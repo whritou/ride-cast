@@ -383,8 +383,7 @@ class RouteMapRenderPlannerTest {
                     temperatureScore = 100,
                     rainScore = 100 - index * 25,
                     gustScore = 100,
-                    cloudScore = 100,
-                    reasons = emptyList()
+                    cloudScore = 100
                 )
             )
         }

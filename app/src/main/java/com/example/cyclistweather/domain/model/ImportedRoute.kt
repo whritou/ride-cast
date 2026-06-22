@@ -6,5 +6,6 @@ data class ImportedRoute(
     val points: List<RoutePoint>,
     val totalDistanceMeters: Double,
     val totalElevationGainMeters: Double?,
-    val createdAtEpochMillis: Long
+    val createdAtEpochMillis: Long,
+    val isFavorite: Boolean = false
 )

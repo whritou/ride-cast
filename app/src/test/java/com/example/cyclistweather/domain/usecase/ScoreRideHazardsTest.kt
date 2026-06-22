@@ -1,5 +1,6 @@
 package com.example.cyclistweather.domain.usecase
 
+import com.example.cyclistweather.domain.model.HazardCategory
 import com.example.cyclistweather.domain.model.HazardKind
 import com.example.cyclistweather.domain.model.HazardSeverity
 import com.example.cyclistweather.domain.model.RelativeWind
@@ -62,6 +63,41 @@ class ScoreRideHazardsTest {
     }
 
     @Test
+    fun `same-category warning and danger collapse to the single most severe hazard`() {
+        // One stretch hits the high-heat warning band, another the extreme-heat danger band.
+        val ride = useCase.scoreRide(
+            listOf(
+                segment(baseWeather(apparentTemperatureCelsius = 34.0)),
+                segment(baseWeather(apparentTemperatureCelsius = 41.0))
+            )
+        )
+
+        val heatHazards = ride.hazards.filter { it.kind.category == HazardCategory.HEAT }
+        assertEquals("Only the most severe heat hazard should remain", 1, heatHazards.size)
+        assertEquals(HazardKind.EXTREME_HEAT, heatHazards.single().kind)
+        assertEquals(HazardSeverity.DANGER, heatHazards.single().severity)
+        assertTrue(
+            "The high-heat warning must not co-exist with the extreme-heat danger",
+            ride.hazards.none { it.kind == HazardKind.HIGH_HEAT }
+        )
+    }
+
+    @Test
+    fun `strong and violent gusts collapse to the single danger hazard`() {
+        val ride = useCase.scoreRide(
+            listOf(
+                segment(baseWeather(windGustKmh = 50.0)),
+                segment(baseWeather(windGustKmh = 70.0))
+            )
+        )
+
+        val gustHazards = ride.hazards.filter { it.kind.category == HazardCategory.GUSTS }
+        assertEquals(1, gustHazards.size)
+        assertEquals(HazardKind.VIOLENT_GUSTS, gustHazards.single().kind)
+        assertEquals(HazardSeverity.DANGER, gustHazards.single().severity)
+    }
+
+    @Test
     fun `night majority ride is flagged as a warning hazard`() {
         val ride = useCase.scoreRide(
             listOf(
@@ -100,14 +136,15 @@ class ScoreRideHazardsTest {
         windGustKmh: Double? = 8.0,
         isDay: Boolean? = null,
         europeanAqi: Int? = 15,
-        uvIndex: Double? = 2.0
+        uvIndex: Double? = 2.0,
+        apparentTemperatureCelsius: Double = 18.0
     ): WeatherPoint {
         return WeatherPoint(
             latitude = 37.0,
             longitude = 127.0,
             timeEpochMillis = 0L,
             temperatureCelsius = 18.0,
-            apparentTemperatureCelsius = 18.0,
+            apparentTemperatureCelsius = apparentTemperatureCelsius,
             windSpeedKmh = 6.0,
             windDirectionDegrees = 90.0,
             windGustKmh = windGustKmh,

@@ -1,0 +1,27 @@
+# Compose-tuned overrides layered on detekt's default rules (buildUponDefaultConfig = true).
+# Rules that fight idiomatic Jetpack Compose / scoring code are relaxed here; everything else
+# keeps detekt's defaults. Pre-existing findings are grandfathered via config/detekt/baseline.xml.
+
+complexity:
+  LongMethod:
+    active: false # @Composable screen builders are legitimately long.
+  LongParameterList:
+    active: false # Composables and use cases take many explicit parameters.
+  TooManyFunctions:
+    active: false
+  CyclomaticComplexMethod:
+    active: false # Large when/if ladders over weather codes and score bands.
+
+naming:
+  FunctionNaming:
+    active: false # @Composable functions use PascalCase by convention.
+
+style:
+  MagicNumber:
+    active: false # dp/sp sizes and scoring thresholds are pervasive literals.
+  UnusedPrivateMember:
+    active: false # @Preview composables read as unused to detekt.
+  ReturnCount:
+    active: false
+  MaxLineLength:
+    maxLineLength: 140

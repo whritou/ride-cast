@@ -24,6 +24,17 @@
         <item quantity="other">%d rutas</item>
     </plurals>
     <string name="route_tap_to_check">Toca para ver el tiempo</string>
+    <!-- Route management: favorite, rename, delete -->
+    <string name="route_options">Opciones de la ruta</string>
+    <string name="route_action_rename">Cambiar nombre</string>
+    <string name="route_action_delete">Eliminar</string>
+    <string name="route_favorite_add">Añadir a favoritos</string>
+    <string name="route_favorite_remove">Quitar de favoritos</string>
+    <string name="route_delete_title">¿Eliminar ruta?</string>
+    <string name="route_delete_message">«%1$s» se eliminará de tu biblioteca. Esta acción no se puede deshacer.</string>
+    <string name="route_rename_title">Cambiar nombre de la ruta</string>
+    <string name="route_rename_label">Nombre de la ruta</string>
+    <string name="action_save">Guardar</string>
     <string name="route_summary_line">%1$s · comprobado %2$s · %3$s</string>
     <string name="empty_routes_title">Aún no hay rutas</string>
     <string name="empty_routes_message">Usa Importar GPX arriba para añadir una de tus salidas, o toca Ruta de demostración para explorar viento, lluvia, temperatura y la mejor hora de salida en un ejemplo.</string>
@@ -117,6 +128,19 @@
     <string name="departure_time_hint">Toca para elegir una hora exacta</string>
     <string name="average_speed">Velocidad media</string>
     <string name="average_speed_hint">Se usa para estimar la hora de llegada a cada punto</string>
+    <!-- Departure planner — window comparison & recommendation reasons -->
+    <string name="departure_compare_title">Comparar franjas de salida</string>
+    <string name="departure_why_title">Por qué esta franja</string>
+    <string name="departure_find_best">Buscar la mejor franja</string>
+    <string name="departure_finding_best">Buscando la mejor franja…</string>
+    <string name="departure_marker_best">Óptima</string>
+    <string name="departure_marker_current">Actual</string>
+    <string name="reason_already_best">Tu salida seleccionada ya es la franja con mejor puntuación.</string>
+    <string name="reason_score_gain">Mejora la puntuación de la ruta en %1$d puntos.</string>
+    <string name="reason_less_rain">Menor riesgo de lluvia durante toda la ruta.</string>
+    <string name="reason_less_headwind">Menos viento en contra en los segmentos analizados.</string>
+    <string name="reason_better_temp">Franja de temperatura más cómoda.</string>
+    <string name="reason_best_overall">Mejor puntuación meteorológica global del periodo analizado.</string>
     <string name="weather_not_loaded_title">Tiempo no cargado</string>
     <string name="weather_not_loaded_message">Actualiza el tiempo de la ruta para ver la mejor salida.</string>
     <string name="weather_unavailable_title">Tiempo no disponible</string>
