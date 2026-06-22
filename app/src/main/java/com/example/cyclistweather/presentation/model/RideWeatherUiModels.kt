@@ -38,11 +38,7 @@ data class DepartureScenarioUiModel(
     val departureEpochMillis: Long,
     val departureTime: String,
     val score: Int,
-    val label: String,
     val duration: String,
-    val windSummary: String,
-    val rainSummary: String,
-    val temperatureSummary: String,
     val isBest: Boolean,
     val isCurrent: Boolean,
     val riskLevel: WeatherRiskLevel

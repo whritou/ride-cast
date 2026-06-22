@@ -131,6 +131,19 @@
     <string name="departure_time_hint">Tap to choose an exact time</string>
     <string name="average_speed">Average speed</string>
     <string name="average_speed_hint">Used to estimate arrival time at each waypoint</string>
+    <!-- Departure planner — window comparison & recommendation reasons -->
+    <string name="departure_compare_title">Compare departure windows</string>
+    <string name="departure_why_title">Why this window</string>
+    <string name="departure_find_best">Find the best window</string>
+    <string name="departure_finding_best">Finding the best window…</string>
+    <string name="departure_marker_best">Best</string>
+    <string name="departure_marker_current">Current</string>
+    <string name="reason_already_best">Your selected departure is already the best-scoring window.</string>
+    <string name="reason_score_gain">Improves the ride score by %1$d points.</string>
+    <string name="reason_less_rain">Lower rain risk across the ride.</string>
+    <string name="reason_less_headwind">Less headwind on the sampled segments.</string>
+    <string name="reason_better_temp">More comfortable temperature window.</string>
+    <string name="reason_best_overall">Best overall weather score in the scanned window.</string>
     <string name="weather_not_loaded_title">Weather not loaded</string>
     <string name="weather_not_loaded_message">Refresh route weather to inspect the best departure.</string>
     <string name="weather_unavailable_title">Weather unavailable</string>

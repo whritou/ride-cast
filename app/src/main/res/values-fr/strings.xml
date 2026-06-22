@@ -117,6 +117,19 @@
     <string name="departure_time_hint">Touchez pour choisir une heure précise</string>
     <string name="average_speed">Vitesse moyenne</string>
     <string name="average_speed_hint">Sert à estimer l’heure d’arrivée à chaque point</string>
+    <!-- Departure planner — window comparison & recommendation reasons -->
+    <string name="departure_compare_title">Comparer les créneaux de départ</string>
+    <string name="departure_why_title">Pourquoi ce créneau</string>
+    <string name="departure_find_best">Trouver le meilleur créneau</string>
+    <string name="departure_finding_best">Recherche du meilleur créneau…</string>
+    <string name="departure_marker_best">Idéal</string>
+    <string name="departure_marker_current">Actuel</string>
+    <string name="reason_already_best">Votre départ sélectionné est déjà le créneau le mieux noté.</string>
+    <string name="reason_score_gain">Améliore le score de la sortie de %1$d points.</string>
+    <string name="reason_less_rain">Risque de pluie réduit sur l’ensemble du parcours.</string>
+    <string name="reason_less_headwind">Moins de vent de face sur les segments analysés.</string>
+    <string name="reason_better_temp">Plage de température plus confortable.</string>
+    <string name="reason_best_overall">Meilleur score météo global de la période analysée.</string>
     <string name="weather_not_loaded_title">Météo non chargée</string>
     <string name="weather_not_loaded_message">Actualisez la météo de l’itinéraire pour voir le meilleur départ.</string>
     <string name="weather_unavailable_title">Météo indisponible</string>
