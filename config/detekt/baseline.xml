@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>MaxLineLength:CyclistWeatherViewModel.kt$CyclistWeatherViewModel$departureOptimizationState = if (shouldKeepOptimization) it.departureOptimizationState else DepartureOptimizationLoadState.Idle</ID>
+    <ID>MaxLineLength:MapControlsView.kt$MapControlButton(icon = MapControlIcons.Center, contentDescription = stringResource(R.string.map_center_course), onClick = onCenterRoute)</ID>
+    <ID>MaxLineLength:OpenMeteoWeatherRepository.kt$OpenMeteoWeatherRepository$"temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,cloud_cover,precipitation,precipitation_probability,wind_speed_10m,wind_gusts_10m,wind_direction_10m,uv_index,visibility,is_day"</ID>
+    <ID>MaxLineLength:RideWeatherUiMapper.kt$RideWeatherUiMapper$RideScoreStatUiModel("Avg temp", "$averageTemperature C", WeatherRiskLevel.fromScore(segments.averageOf { it.score.temperatureScore }))</ID>
+    <ID>MaxLineLength:RouteConditionsGrid.kt$ConditionTile(Icons.Filled.Cloud, RideWeatherColors.LowVisibility, avgCloud?.let { "$it%" } ?: placeholder, stringResource(R.string.condition_cloud_cover))</ID>
+    <ID>MaxLineLength:RouteConditionsGrid.kt$ConditionTile(Icons.Filled.Opacity, RideWeatherColors.Sky, avgHumidity?.let { "$it%" } ?: placeholder, stringResource(R.string.condition_humidity))</ID>
+    <ID>MaxLineLength:RouteConditionsGrid.kt$ConditionTile(Icons.Filled.Visibility, RideWeatherColors.Sky, worstVisibility?.let { RouteFormatters.formatVisibility(it) } ?: placeholder, stringResource(R.string.condition_visibility))</ID>
+    <ID>MaxLineLength:RouteElevationProfilePanel.kt$text = "${w.windSpeedKmh.roundToInt()} km/h ${RouteFormatters.formatWindDirection(w.windDirectionDegrees)}"</ID>
+    <ID>MaxLineLength:RouteMapRenderPlanner.kt$RouteMapRenderPlanner$MapWeatherFilter.FEELS_LIKE -&gt; "${(segment.weather.apparentTemperatureCelsius ?: segment.weather.temperatureCelsius).roundToInt()} C"</ID>
+    <ID>MaxLineLength:WeatherSummaryRow.kt$IconStat(Icons.Filled.Thermostat, RideWeatherColors.Caution, summary.tempValue ?: placeholder, stringResource(R.string.summary_temp))</ID>
+    <ID>NestedBlockDepth:GpxParser.kt$GpxParser$private fun readTrackPoints(inputStream: InputStream): List&lt;RawTrackPoint&gt;</ID>
+    <ID>NewLineAtEndOfFile:ExampleUnitTest.kt$com.example.cyclistweather.ExampleUnitTest.kt</ID>
+    <ID>NewLineAtEndOfFile:RouteMapLegend.kt$com.example.cyclistweather.presentation.map.RouteMapLegend.kt</ID>
+    <ID>ThrowsCount:GpxParser.kt$GpxParser$private fun readTrackPoints(inputStream: InputStream): List&lt;RawTrackPoint&gt;</ID>
+    <ID>UnusedParameter:RouteScreen.kt$onDismissError: () -&gt; Unit</ID>
+    <ID>UseCheckOrError:BuildRouteWeatherUseCase.kt$BuildRouteWeatherUseCase$throw IllegalStateException("No forecast available for route sample.")</ID>
+    <ID>WildcardImport:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
+  </CurrentIssues>
+</SmellBaseline>
