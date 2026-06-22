@@ -145,7 +145,7 @@ private fun CoursePoint.metrics(tab: ConditionTab): List<Metric> {
         ConditionTab.SUMMARY -> listOf(
             Metric(windArrow, ui.wind),
             Metric(ui.temperature, stringResource(R.string.metric_temp)),
-            Metric(ui.rain.substringBefore(" "), stringResource(R.string.metric_rain))
+            Metric(ui.rain, stringResource(R.string.metric_rain))
         )
         ConditionTab.TEMPERATURE -> listOf(
             Metric(ui.temperature, stringResource(R.string.metric_temp)),
@@ -154,11 +154,11 @@ private fun CoursePoint.metrics(tab: ConditionTab): List<Metric> {
         )
         ConditionTab.WIND -> listOf(
             Metric(ui.wind, stringResource(ui.relativeWindRes)),
-            Metric(ui.gust, stringResource(R.string.metric_gusts)),
+            Metric(ui.gust ?: "—", stringResource(R.string.metric_gusts)),
             Metric(windArrow, stringResource(R.string.metric_course))
         )
         ConditionTab.RAIN -> listOf(
-            Metric(ui.rain.substringBefore(" "), stringResource(R.string.metric_rain)),
+            Metric(ui.rain, stringResource(R.string.metric_rain)),
             Metric(segment.weather.precipitationMmLabel(), stringResource(R.string.metric_amount)),
             Metric(stringResource(ui.conditionRes), stringResource(R.string.metric_sky))
         )

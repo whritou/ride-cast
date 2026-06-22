@@ -3,9 +3,7 @@ package com.example.cyclistweather.presentation.model
 import com.example.cyclistweather.core.common.RouteFormatters
 import com.example.cyclistweather.domain.model.ImportedRoute
 import com.example.cyclistweather.domain.model.RideScore
-import com.example.cyclistweather.domain.model.RouteWeatherSnapshot
 import com.example.cyclistweather.domain.model.SegmentWeather
-import com.example.cyclistweather.domain.model.WeatherDataFreshness
 import com.example.cyclistweather.domain.model.mapWeatherCode
 import com.example.cyclistweather.domain.optimizer.DepartureOptimizationResult
 import kotlin.math.roundToInt
@@ -25,32 +23,21 @@ object RideWeatherUiMapper {
             name = route.name,
             distance = RouteFormatters.formatDistance(route.totalDistanceMeters),
             elevationGain = RouteFormatters.formatElevationGain(route.totalElevationGainMeters),
-            estimatedDuration = RouteFormatters.formatDuration(durationMinutes),
-            averageSpeed = "${averageSpeedKmh.roundToInt()} km/h",
-            pointCount = "${route.points.size} ${if (route.points.size == 1) "point" else "points"}"
+            estimatedDuration = RouteFormatters.formatDuration(durationMinutes)
         )
     }
 
-    fun rideScore(
-        score: RideScore,
-        bestDepartureWindow: String? = null
-    ): RideScoreUiModel {
-        val riskLevel = WeatherRiskLevel.fromScore(score.total)
+    fun rideScore(score: RideScore): RideScoreUiModel {
         return RideScoreUiModel(
             score = score.total,
-            label = riskLevel.label,
-            riskLevel = riskLevel,
-            bestDepartureWindow = bestDepartureWindow,
-            risks = score.risks,
-            factors = factorAverages(score.worstSegments),
-            stats = scoreStats(score)
+            riskLevel = WeatherRiskLevel.fromScore(score.total)
         )
     }
 
     fun weatherPoint(segment: SegmentWeather): WeatherPointUiModel {
-        val riskLevel = WeatherRiskLevel.fromScore(segment.score.total)
         val rainProbability = segment.weather.precipitationProbabilityPercent ?: 0
-        val gust = segment.weather.windGustKmh?.roundToInt()?.let { "$it km/h gust" } ?: "No gust data"
+        // Unit-only values; the surrounding UI supplies the localized label ("Gusts", "Rain", …).
+        val gust = segment.weather.windGustKmh?.roundToInt()?.let { "$it km/h" }
 
         return WeatherPointUiModel(
             id = segment.sample.id,
@@ -61,55 +48,23 @@ object RideWeatherUiMapper {
                 RouteFormatters.formatWindDirection(segment.weather.windDirectionDegrees)
             }",
             gust = gust,
-            rain = "$rainProbability% rain",
-            relativeWind = segment.relativeWind.label,
+            rain = "$rainProbability%",
             relativeWindRes = segment.relativeWind.labelRes,
-            condition = mapWeatherCode(segment.weather.weatherCode).label,
             conditionRes = mapWeatherCode(segment.weather.weatherCode).labelRes,
-            riskLabel = riskLevel.label,
-            riskLevel = riskLevel,
-            reasons = segment.score.reasons
+            riskLevel = WeatherRiskLevel.fromScore(segment.score.total)
         )
-    }
-
-    fun weatherPoints(snapshot: RouteWeatherSnapshot): List<WeatherPointUiModel> {
-        return snapshot.segmentWeather.map(::weatherPoint)
-    }
-
-    fun weatherFreshness(freshness: WeatherDataFreshness): WeatherFreshnessUiModel {
-        return when (freshness) {
-            WeatherDataFreshness.LIVE -> WeatherFreshnessUiModel(
-                label = "Live",
-                description = "Updated from the forecast service just now.",
-                riskLevel = WeatherRiskLevel.EXCELLENT
-            )
-            WeatherDataFreshness.FRESH_CACHE -> WeatherFreshnessUiModel(
-                label = "Cached",
-                description = "Using a recent saved forecast while avoiding another network request.",
-                riskLevel = WeatherRiskLevel.GOOD
-            )
-            WeatherDataFreshness.STALE_CACHE -> WeatherFreshnessUiModel(
-                label = "Offline",
-                description = "Showing a stale saved forecast because live weather is unavailable.",
-                riskLevel = WeatherRiskLevel.CAUTION
-            )
-        }
     }
 
     fun routeWeatherSummary(
         routeId: String,
         score: Int,
-        checkedAtEpochMillis: Long,
-        freshness: WeatherDataFreshness
+        checkedAtEpochMillis: Long
     ): RouteWeatherSummaryUiModel {
-        val riskLevel = WeatherRiskLevel.fromScore(score)
         return RouteWeatherSummaryUiModel(
             routeId = routeId,
             score = score,
-            label = riskLevel.label,
-            riskLevel = riskLevel,
-            checkedAt = RouteFormatters.formatClock(checkedAtEpochMillis),
-            freshness = weatherFreshness(freshness)
+            riskLevel = WeatherRiskLevel.fromScore(score),
+            checkedAt = RouteFormatters.formatClock(checkedAtEpochMillis)
         )
     }
 
@@ -139,40 +94,6 @@ object RideWeatherUiMapper {
                 riskLevel = riskLevel
             )
         }.sortedBy { it.departureEpochMillis }
-    }
-
-    private fun factorAverages(segments: List<SegmentWeather>): List<RideScoreFactorUiModel> {
-        if (segments.isEmpty()) {
-            return emptyList()
-        }
-
-        return listOf(
-            RideScoreFactorUiModel("Wind", segments.averageOf { it.score.windScore }, "Relative wind along route"),
-            RideScoreFactorUiModel("Rain", segments.averageOf { it.score.rainScore }, "Chance and intensity"),
-            RideScoreFactorUiModel("Temperature", segments.averageOf { it.score.temperatureScore }, "Comfort range"),
-            RideScoreFactorUiModel("Gusts", segments.averageOf { it.score.gustScore }, "Wind gust risk")
-        )
-    }
-
-    private fun scoreStats(score: RideScore): List<RideScoreStatUiModel> {
-        val segments = (score.worstSegments + score.bestSegments).distinctBy { it.sample.id }
-        if (segments.isEmpty()) {
-            return emptyList()
-        }
-
-        val averageTemperature = segments.map { it.weather.temperatureCelsius }.average().roundToInt()
-        val averageWind = segments.map { it.weather.windSpeedKmh }.average().roundToInt()
-        val peakRain = segments.maxOf { it.weather.precipitationProbabilityPercent ?: 0 }
-
-        return listOf(
-            RideScoreStatUiModel("Avg temp", "$averageTemperature C", WeatherRiskLevel.fromScore(segments.averageOf { it.score.temperatureScore })),
-            RideScoreStatUiModel("Avg wind", "$averageWind km/h", WeatherRiskLevel.fromScore(segments.averageOf { it.score.windScore })),
-            RideScoreStatUiModel("Peak rain", "$peakRain%", WeatherRiskLevel.fromScore(segments.averageOf { it.score.rainScore }))
-        )
-    }
-
-    private fun List<SegmentWeather>.averageOf(selector: (SegmentWeather) -> Int): Int {
-        return map(selector).average().roundToInt()
     }
 
     private fun windSummary(segments: List<SegmentWeather>): String {

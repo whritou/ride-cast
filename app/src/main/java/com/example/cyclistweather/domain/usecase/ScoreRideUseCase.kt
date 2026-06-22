@@ -60,8 +60,7 @@ class ScoreRideUseCase {
             visibilityScore = visibilityScore,
             airQualityScore = airQualityScore,
             uvScore = uvScore,
-            daylightScore = daylightScore,
-            reasons = reasonsFor(weather, windComponents, apparent, total)
+            daylightScore = daylightScore
         )
     }
 
@@ -69,7 +68,6 @@ class ScoreRideUseCase {
         if (segmentWeather.isEmpty()) {
             return RideScore(
                 total = 0,
-                risks = emptyList(),
                 bestSegments = emptyList(),
                 worstSegments = emptyList(),
                 hazards = emptyList()
@@ -83,28 +81,9 @@ class ScoreRideUseCase {
         val total = (average * 0.7 + worst * 0.3).roundToInt().coerceIn(0, 100)
 
         val hazards = hazardsFor(segmentWeather)
-        val risks = buildList {
-            val worstWind = segmentWeather.maxByOrNull { it.windComponents.headwindKmh }
-            if (worstWind != null && worstWind.windComponents.headwindKmh >= 10.0) {
-                add("Headwind near ${RouteFormatters.formatDistance(worstWind.sample.distanceFromStartMeters)}")
-            }
-
-            val wettest = segmentWeather.maxByOrNull {
-                it.weather.precipitationProbabilityPercent ?: 0
-            }
-            if (wettest != null && (wettest.weather.precipitationProbabilityPercent ?: 0) >= 40) {
-                add("Rain risk near ${RouteFormatters.formatDistance(wettest.sample.distanceFromStartMeters)}")
-            }
-
-            val hottestOrColdest = segmentWeather.minByOrNull { it.score.temperatureScore }
-            if (hottestOrColdest != null && hottestOrColdest.score.temperatureScore <= 50) {
-                add("Temperature stress near ${RouteFormatters.formatDistance(hottestOrColdest.sample.distanceFromStartMeters)}")
-            }
-        }
 
         return RideScore(
             total = total,
-            risks = risks.ifEmpty { listOf("No major weather risk") },
             bestSegments = segmentWeather.sortedByDescending { it.score.total }.take(3),
             worstSegments = segmentWeather.sortedBy { it.score.total }.take(3),
             hazards = hazards
@@ -250,39 +229,6 @@ class ScoreRideUseCase {
         }
 
         return ceiling
-    }
-
-    private fun reasonsFor(
-        weather: WeatherPoint,
-        windComponents: WindComponents,
-        apparentCelsius: Double,
-        total: Int
-    ): List<String> {
-        return buildList {
-            if (windComponents.headwindKmh > 10.0) {
-                add("Headwind ${windComponents.headwindKmh.roundToInt()} km/h")
-            }
-            if ((weather.precipitationProbabilityPercent ?: 0) >= 40) {
-                add("Rain ${weather.precipitationProbabilityPercent}%")
-            }
-            if (apparentCelsius < 8.0 || apparentCelsius > 28.0) {
-                add("Feels ${apparentCelsius.roundToInt()} C")
-            }
-            weather.visibilityMeters?.let { visibility ->
-                if (visibility < 1_000.0 || weather.weatherCode in FOG_CODES) {
-                    add("Low visibility")
-                }
-            }
-            weather.europeanAqi?.let { aqi ->
-                if (aqi > 100) add("Poor air quality")
-            }
-            if (weather.isDay == false) {
-                add("Night ride")
-            }
-            if (total >= 80 && isEmpty()) {
-                add("Comfortable segment")
-            }
-        }
     }
 
     private fun hazardsFor(segments: List<SegmentWeather>): List<RideHazard> {

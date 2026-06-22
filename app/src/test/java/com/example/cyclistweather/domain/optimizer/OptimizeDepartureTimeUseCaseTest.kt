@@ -187,8 +187,7 @@ class OptimizeDepartureTimeUseCaseTest {
                     temperatureScore = score,
                     rainScore = score,
                     gustScore = score,
-                    cloudScore = score,
-                    reasons = emptyList()
+                    cloudScore = score
                 )
             )
         }
@@ -199,7 +198,6 @@ class OptimizeDepartureTimeUseCaseTest {
             segmentWeather = segments,
             rideScore = RideScore(
                 total = score,
-                risks = emptyList(),
                 bestSegments = segments,
                 worstSegments = segments
             )

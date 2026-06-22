@@ -271,8 +271,7 @@ private fun RouteLibraryRow(
         RideWeatherUiMapper.routeWeatherSummary(
             routeId = it.routeId,
             score = it.score,
-            checkedAtEpochMillis = it.checkedAtEpochMillis,
-            freshness = it.freshness()
+            checkedAtEpochMillis = it.checkedAtEpochMillis
         )
     }
     val outlook = summaryModel?.score ?: remember(route.id) { routeOutlookScore(route) }

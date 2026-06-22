@@ -5,46 +5,19 @@ data class RideRouteUiModel(
     val name: String,
     val distance: String,
     val elevationGain: String,
-    val estimatedDuration: String,
-    val averageSpeed: String,
-    val pointCount: String
+    val estimatedDuration: String
 )
 
 data class RideScoreUiModel(
     val score: Int,
-    val label: String,
-    val riskLevel: WeatherRiskLevel,
-    val bestDepartureWindow: String?,
-    val risks: List<String>,
-    val factors: List<RideScoreFactorUiModel>,
-    val stats: List<RideScoreStatUiModel>
-)
-
-data class RideScoreFactorUiModel(
-    val label: String,
-    val score: Int,
-    val description: String
-)
-
-data class RideScoreStatUiModel(
-    val label: String,
-    val value: String,
-    val riskLevel: WeatherRiskLevel
-)
-
-data class WeatherFreshnessUiModel(
-    val label: String,
-    val description: String,
     val riskLevel: WeatherRiskLevel
 )
 
 data class RouteWeatherSummaryUiModel(
     val routeId: String,
     val score: Int,
-    val label: String,
     val riskLevel: WeatherRiskLevel,
-    val checkedAt: String,
-    val freshness: WeatherFreshnessUiModel
+    val checkedAt: String
 )
 
 data class WeatherPointUiModel(
@@ -53,15 +26,12 @@ data class WeatherPointUiModel(
     val arrivalTime: String,
     val temperature: String,
     val wind: String,
-    val gust: String,
+    /** Gust speed formatted as a unit-only value (e.g. "32 km/h"), or null when unavailable. */
+    val gust: String?,
     val rain: String,
-    val relativeWind: String,
     @androidx.annotation.StringRes val relativeWindRes: Int,
-    val condition: String,
     @androidx.annotation.StringRes val conditionRes: Int,
-    val riskLabel: String,
-    val riskLevel: WeatherRiskLevel,
-    val reasons: List<String>
+    val riskLevel: WeatherRiskLevel
 )
 
 data class DepartureScenarioUiModel(
