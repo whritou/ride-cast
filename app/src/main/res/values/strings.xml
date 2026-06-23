@@ -131,6 +131,8 @@
     <string name="departure_time_hint">Tap to choose an exact time</string>
     <string name="average_speed">Average speed</string>
     <string name="average_speed_hint">Used to estimate arrival time at each waypoint</string>
+    <string name="first_run_speed_title">Set your average speed</string>
+    <string name="first_run_speed_message">We use it to estimate when you\'ll reach each point on a ride. You can change it anytime in Settings.</string>
     <!-- Departure planner — window comparison & recommendation reasons -->
     <string name="departure_compare_title">Compare departure windows</string>
     <string name="departure_why_title">Why this window</string>

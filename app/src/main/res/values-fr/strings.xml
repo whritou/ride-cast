@@ -117,6 +117,8 @@
     <string name="departure_time_hint">Touchez pour choisir une heure précise</string>
     <string name="average_speed">Vitesse moyenne</string>
     <string name="average_speed_hint">Sert à estimer l’heure d’arrivée à chaque point</string>
+    <string name="first_run_speed_title">Définissez votre vitesse moyenne</string>
+    <string name="first_run_speed_message">Elle sert à estimer quand vous atteindrez chaque point du parcours. Vous pourrez la modifier à tout moment dans les réglages.</string>
     <!-- Departure planner — window comparison & recommendation reasons -->
     <string name="departure_compare_title">Comparer les créneaux de départ</string>
     <string name="departure_why_title">Pourquoi ce créneau</string>

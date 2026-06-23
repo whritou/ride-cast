@@ -117,6 +117,8 @@
     <string name="departure_time_hint">Toca para elegir una hora exacta</string>
     <string name="average_speed">Velocidad media</string>
     <string name="average_speed_hint">Se usa para estimar la hora de llegada a cada punto</string>
+    <string name="first_run_speed_title">Define tu velocidad media</string>
+    <string name="first_run_speed_message">La usamos para estimar cuándo llegarás a cada punto de la ruta. Puedes cambiarla cuando quieras en Ajustes.</string>
     <!-- Departure planner — window comparison & recommendation reasons -->
     <string name="departure_compare_title">Comparar franjas de salida</string>
     <string name="departure_why_title">Por qué esta franja</string>

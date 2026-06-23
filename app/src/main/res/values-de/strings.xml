@@ -117,6 +117,8 @@
     <string name="departure_time_hint">Tippen, um eine genaue Zeit zu wählen</string>
     <string name="average_speed">Durchschnittstempo</string>
     <string name="average_speed_hint">Dient zur Schätzung der Ankunftszeit an jedem Wegpunkt</string>
+    <string name="first_run_speed_title">Lege dein Durchschnittstempo fest</string>
+    <string name="first_run_speed_message">Damit schätzen wir, wann du jeden Punkt der Fahrt erreichst. Du kannst es jederzeit in den Einstellungen ändern.</string>
     <!-- Departure planner — window comparison & recommendation reasons -->
     <string name="departure_compare_title">Zeitfenster vergleichen</string>
     <string name="departure_why_title">Warum dieses Fenster</string>

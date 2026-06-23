@@ -236,6 +236,7 @@ class CyclistWeatherViewModel(
                         themeMode = settings.themeMode(),
                         language = settings.language(),
                         departureNotificationsEnabled = settings.departureNotificationsEnabled,
+                        averageSpeedConfigured = settings.averageSpeedConfigured,
                         routeWeatherSummaries = settings.routeWeatherSummaries
                     )
                 }
