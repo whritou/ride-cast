@@ -13,6 +13,7 @@ data class AppSettingsSnapshot(
     val themeModeName: String = ThemeMode.SYSTEM.name,
     val languageName: String = AppLanguage.SYSTEM.name,
     val departureNotificationsEnabled: Boolean = false,
+    val averageSpeedConfigured: Boolean = false,
     val routeWeatherSummaries: Map<String, RouteWeatherSummarySnapshot> = emptyMap()
 ) {
     fun validAverageSpeedKmh(): Double {

@@ -25,7 +25,10 @@ class DataStoreAppSettingsRepository(
 
     override suspend fun setAverageSpeedKmh(value: Double) {
         dataStore.updateData { settings ->
-            settings.copy(averageSpeedKmh = value.takeIf { it > 0.0 } ?: DEFAULT_AVERAGE_SPEED_KMH)
+            settings.copy(
+                averageSpeedKmh = value.takeIf { it > 0.0 } ?: DEFAULT_AVERAGE_SPEED_KMH,
+                averageSpeedConfigured = true
+            )
         }
     }
 

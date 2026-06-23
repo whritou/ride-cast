@@ -147,6 +147,14 @@ fun CyclistWeatherApp(viewModel: CyclistWeatherViewModel) {
             }
         }
     }
+
+    // First launch only: ask for average speed once, then it lives in Settings.
+    if (!state.averageSpeedConfigured) {
+        FirstRunSpeedDialog(
+            initialSpeedKmh = state.averageSpeedKmh,
+            onSave = viewModel::setAverageSpeed
+        )
+    }
 }
 
 private fun ImportedRoute.exportFileName(): String {

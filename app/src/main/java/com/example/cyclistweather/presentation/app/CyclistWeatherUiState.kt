@@ -20,6 +20,8 @@ data class CyclistWeatherUiState(
     val themeMode: ThemeMode = ThemeMode.SYSTEM,
     val language: AppLanguage = AppLanguage.SYSTEM,
     val departureNotificationsEnabled: Boolean = false,
+    // Optimistic default avoids flashing the first-run prompt before settings load.
+    val averageSpeedConfigured: Boolean = true,
     val isImporting: Boolean = false,
     @androidx.annotation.StringRes val errorMessageRes: Int? = null
 )

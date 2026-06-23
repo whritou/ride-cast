@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Speed
@@ -103,7 +104,8 @@ internal fun DepartureTimePickerPanel(
     selectedDepartureEpochMillis: Long,
     snapshot: RouteWeatherSnapshot,
     optimization: DepartureOptimizationResult?,
-    onSelectTime: (Int, Int) -> Unit
+    onSelectTime: (Int, Int) -> Unit,
+    onCompareWindows: (() -> Unit)? = null
 ) {
     val selectedHour = DepartureTimeEditor.hourOfDay(selectedDepartureEpochMillis)
     val selectedMinute = DepartureTimeEditor.minute(selectedDepartureEpochMillis)
@@ -202,6 +204,28 @@ internal fun DepartureTimePickerPanel(
                 Text("12:00", style = MaterialTheme.typography.labelSmall, color = RideWeatherColors.TextSecondary)
                 Text("18:00", style = MaterialTheme.typography.labelSmall, color = RideWeatherColors.TextSecondary)
                 Text("23:00", style = MaterialTheme.typography.labelSmall, color = RideWeatherColors.TextSecondary)
+            }
+            if (onCompareWindows != null) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(min = 44.dp)
+                        .clickable(onClick = onCompareWindows),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = stringResource(R.string.departure_compare_title),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = RideWeatherColors.Accent
+                    )
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                        contentDescription = null,
+                        tint = RideWeatherColors.Accent,
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
             }
         }
     }
