@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,16 +31,15 @@ import com.example.cyclistweather.ui.theme.SkeletonBox
 import com.example.cyclistweather.ui.theme.Spacing
 import com.example.cyclistweather.ui.theme.rememberShimmerBrush
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun BestDepartureContent(
     routeWeatherState: RouteWeatherLoadState,
     departureOptimizationState: DepartureOptimizationLoadState,
     selectedDepartureEpochMillis: Long,
-    averageSpeedKmh: Double,
     onRetry: () -> Unit,
     onSetDepartureDate: (Long) -> Unit,
     onSetDepartureTime: (Int, Int) -> Unit,
-    onSetAverageSpeed: (Double) -> Unit,
     onUseBestDeparture: (Long) -> Unit,
     onReoptimize: () -> Unit
 ) {
@@ -64,6 +65,7 @@ internal fun BestDepartureContent(
             var selectedTab by remember(snapshot.routeId, departure) {
                 mutableStateOf(ConditionTab.SUMMARY)
             }
+            var showWindowComparison by remember(snapshot.routeId) { mutableStateOf(false) }
             val bestCandidate = optimization?.result?.bestCandidate
             Column(verticalArrangement = Arrangement.spacedBy(Spacing.md)) {
                 BestDepartureHero(
@@ -78,8 +80,7 @@ internal fun BestDepartureContent(
                             DepartureTimeEditor.formatTimeLabel(bestCandidate.departureEpochMillis),
                             bestCandidate.snapshot.rideScore.total
                         ),
-                        onClick = { onUseBestDeparture(bestCandidate.departureEpochMillis) },
-                        modifier = Modifier.fillMaxWidth()
+                        onClick = { onUseBestDeparture(bestCandidate.departureEpochMillis) }
                     )
                 }
                 DayStrip(
@@ -90,23 +91,32 @@ internal fun BestDepartureContent(
                     selectedDepartureEpochMillis = selectedDepartureEpochMillis,
                     snapshot = snapshot,
                     optimization = optimization?.result,
-                    onSelectTime = onSetDepartureTime
-                )
-                AverageSpeedInput(
-                    averageSpeedKmh = averageSpeedKmh,
-                    onSetAverageSpeed = onSetAverageSpeed
-                )
-                DepartureWindowSection(
-                    optimizationState = departureOptimizationState,
-                    selectedDepartureEpochMillis = departure,
-                    onSelectWindow = onUseBestDeparture,
-                    onReoptimize = onReoptimize
+                    onSelectTime = onSetDepartureTime,
+                    onCompareWindows = optimization?.let { { showWindowComparison = true } }
                 )
                 ConditionsSection(
                     snapshot = snapshot,
                     selectedTab = selectedTab,
                     onSelectTab = { selectedTab = it }
                 )
+            }
+
+            // The window comparison opens on its own sheet so it never buries the conditions list.
+            if (showWindowComparison) {
+                ModalBottomSheet(onDismissRequest = { showWindowComparison = false }) {
+                    DepartureWindowSection(
+                        optimizationState = departureOptimizationState,
+                        selectedDepartureEpochMillis = departure,
+                        onSelectWindow = {
+                            onUseBestDeparture(it)
+                            showWindowComparison = false
+                        },
+                        onReoptimize = onReoptimize,
+                        modifier = Modifier
+                            .padding(horizontal = Spacing.lg)
+                            .padding(bottom = Spacing.xl)
+                    )
+                }
             }
         }
     }
