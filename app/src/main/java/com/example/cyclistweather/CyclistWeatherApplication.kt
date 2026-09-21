@@ -4,9 +4,12 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
+import android.util.Log
 import com.example.cyclistweather.core.di.AppContainer
 import com.example.cyclistweather.core.reminder.DEPARTURE_REMINDER_CHANNEL_ID
 import okhttp3.OkHttpClient
+import org.maplibre.android.MapLibre
+import org.maplibre.android.WellKnownTileServer
 import org.maplibre.android.module.http.HttpRequestUtil
 
 class CyclistWeatherApplication : Application() {
@@ -15,7 +18,14 @@ class CyclistWeatherApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        setupMapLibreHttp()
+        try {
+            // Initialize MapLibre with explicit tile server choice to satisfy the validator.
+            MapLibre.getInstance(this, null, WellKnownTileServer.MapLibre)
+            // Then configure the custom OkHttpClient for OSM policy compliance.
+            setupMapLibreHttp()
+        } catch (e: Throwable) {
+            Log.e("CyclistWeatherApp", "Failed to initialize MapLibre", e)
+        }
         container = AppContainer(this)
         createDepartureReminderChannel()
     }
