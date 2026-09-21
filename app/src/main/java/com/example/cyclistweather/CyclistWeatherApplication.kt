@@ -6,6 +6,8 @@ import android.app.NotificationManager
 import android.os.Build
 import com.example.cyclistweather.core.di.AppContainer
 import com.example.cyclistweather.core.reminder.DEPARTURE_REMINDER_CHANNEL_ID
+import okhttp3.OkHttpClient
+import org.maplibre.android.module.http.HttpRequestUtil
 
 class CyclistWeatherApplication : Application() {
     lateinit var container: AppContainer
@@ -13,8 +15,25 @@ class CyclistWeatherApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        setupMapLibreHttp()
         container = AppContainer(this)
         createDepartureReminderChannel()
+    }
+
+    private fun setupMapLibreHttp() {
+        // OSM Tile Usage Policy requires a valid User-Agent and sometimes Referer.
+        // https://operations.osmfoundation.org/policies/tiles/
+        val client = OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val request = chain.request().newBuilder()
+                    .header("User-Agent", "RideCast/1.0 (com.example.cyclistweather)")
+                    // Some OSM blocks require a Referer header to identify the traffic source.
+                    .header("Referer", "android-app://com.example.cyclistweather")
+                    .build()
+                chain.proceed(request)
+            }
+            .build()
+        HttpRequestUtil.setOkHttpClient(client)
     }
 
     private fun createDepartureReminderChannel() {
