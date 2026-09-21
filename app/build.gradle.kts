@@ -73,6 +73,7 @@ dependencies {
     implementation(libs.ktor.serialization.kotlinx.json)
     // MapLibre: route map rendering
     implementation(libs.maplibre.android)
+    implementation(libs.okhttp)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
